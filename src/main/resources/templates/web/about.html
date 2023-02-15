@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="web/fragment::head(title='About us')">
+</head>
+<body>
+<!-- Topbar Start -->
+<div th:replace="~{web/fragment::topbar}"></div>
+
+<!-- Navbar Start -->
+<div class="container-fluid mb-5">
+  <div class="row border-top px-xl-5">
+    <div th:replace="~{web/fragment::category(page='contact')}"></div>
+    <div class="col-lg-9">
+      <nav th:replace="~{web/fragment::nav-cart}"></nav>
+    </div>
+  </div>
+</div>
+<!-- Navbar End -->
+
+<!-- Footer Start -->
+<div th:replace="~{web/fragment::footer}"></div>
+<!-- Footer End -->
+
+<!--script file-->
+<th:block th:insert="~{web/fragment::body/script}"></th:block>
+</body>
+</html>
