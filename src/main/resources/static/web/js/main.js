@@ -1,6 +1,15 @@
 (function ($) {
     "use strict";
-    
+
+    //sign in
+    $("#signUp").click(function () {
+        $("#container").addClass("right-panel-active");
+    });
+
+    $("#signIn").click(function () {
+        $("#container").removeClass("right-panel-active")
+    });
+
     // Dropdown on mouse hover
     $(document).ready(function () {
         function toggleNavbarMethod() {
