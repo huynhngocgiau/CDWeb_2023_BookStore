@@ -35,4 +35,8 @@ public class WebController {
     public String about(){
         return "web/about";
     }
+    @GetMapping("/signin")
+    public String signin(){
+        return "web/signin";
+    }
 }
