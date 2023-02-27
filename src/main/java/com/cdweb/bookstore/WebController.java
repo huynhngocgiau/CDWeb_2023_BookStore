@@ -35,12 +35,11 @@ public class WebController {
     public String about(){
         return "web/about";
     }
-<<<<<<< Updated upstream
-=======
     @GetMapping("/signin")
     public String signin(){
         return "web/signin";
     }
+
  //admin book
     @GetMapping("/admin-page/book-management")
     public String listBook() {
@@ -97,5 +96,4 @@ public class WebController {
     public String listAccount() {
         return "admin/account-management/accounts";
     }
->>>>>>> Stashed changes
 }
