@@ -39,4 +39,61 @@ public class WebController {
     public String signin(){
         return "web/signin";
     }
+
+ //admin book
+    @GetMapping("/admin-page/book-management")
+    public String listBook() {
+        return "admin/book-management/books";
+    }
+
+    @GetMapping("/admin-page/add-book")
+    public String addBook() {
+        return "admin/book-management/addBook";
+    }
+    @GetMapping("/admin-page/edit-book")
+    public String editBook() {
+        return "admin/book-management/editBook";
+    }
+
+    //amdin category
+    @GetMapping("/admin-page/category-management")
+    public String listCategory() {
+        return "admin/category-management/categories";
+    }
+
+    @GetMapping("/admin-page/add-category")
+    public String addCategory() {
+        return "admin/category-management/addCategory";
+    }
+    @GetMapping("/admin-page/edit-category")
+    public String editCategory() {
+        return "admin/category-management/editCategory";
+    }
+
+    //admin author
+    @GetMapping("/admin-page/author-management")
+    public String listAuthor() {
+        return "admin/author-management/authors";
+    }
+
+    @GetMapping("/admin-page/add-author")
+    public String addAuthor() {
+        return "admin/author-management/addAuthor";
+    }
+    @GetMapping("/admin-page/edit-author")
+    public String editAuthor() {
+        return "admin/author-management/editAuthor";
+    }
+
+    //order
+    @GetMapping("/admin-page/order-management")
+    public String listOrder() {
+        return "admin/order-management/orders";
+    }
+
+    //account
+    @GetMapping("/admin-page/account-management")
+    public String listAccount() {
+        return "admin/account-management/accounts";
+    }
 }
