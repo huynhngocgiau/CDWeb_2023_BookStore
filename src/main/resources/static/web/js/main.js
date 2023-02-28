@@ -23,11 +23,12 @@
                 $('.navbar .dropdown').off('mouseover').off('mouseout');
             }
         }
+
         toggleNavbarMethod();
         $(window).resize(toggleNavbarMethod);
     });
-    
-    
+
+
     // Back to top button
     $(window).scroll(function () {
         if ($(this).scrollTop() > 100) {
@@ -50,20 +51,20 @@
         autoplay: true,
         smartSpeed: 1000,
         responsive: {
-            0:{
-                items:2
+            0: {
+                items: 2
             },
-            576:{
-                items:3
+            576: {
+                items: 3
             },
-            768:{
-                items:4
+            768: {
+                items: 4
             },
-            992:{
-                items:5
+            992: {
+                items: 5
             },
-            1200:{
-                items:6
+            1200: {
+                items: 6
             }
         }
     });
@@ -77,17 +78,17 @@
         autoplay: true,
         smartSpeed: 1000,
         responsive: {
-            0:{
-                items:1
+            0: {
+                items: 1
             },
-            576:{
-                items:2
+            576: {
+                items: 2
             },
-            768:{
-                items:3
+            768: {
+                items: 3
             },
-            992:{
-                items:4
+            992: {
+                items: 4
             }
         }
     });
@@ -108,6 +109,23 @@
         }
         button.parent().parent().find('input').val(newVal);
     });
-    
+
+    //ajax category
+    $.ajax({
+        url: "/getAllCat",
+        type: "GET",
+        cache: false,
+        success: function (results) {
+            var str = "";
+            $.each(results, function (index, category) {
+                str += "<a href='#' class='nav-item nav-link'>" + category.name + "</a>";
+            });
+            $("#listCategory").html(str);
+        }
+    });
+
+    //show category list on index page
+    if (window.location.pathname == "/") $("#navbar-vertical").addClass("show");
+    else $("#navbar-vertical").removeClass("show");
 })(jQuery);
 
