@@ -94,28 +94,16 @@
 <!-- Navbar Start -->
 <div class="container-fluid mb-5">
     <div class="row border-top px-xl-5">
-        <div class="col-lg-3 d-none d-lg-block" th:fragment="category(page)">
+        <div class="col-lg-3 d-none d-lg-block" th:fragment="category">
             <a class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100"
                data-toggle="collapse" href="#navbar-vertical" style="height:65px; margin-top: -1px; padding: 0 30px;">
                 <h6 class="m-0">Categories</h6>
                 <i class="fa fa-angle-down text-dark"></i>
             </a>
-            <nav th:if="${page} == 'index'"
-                 class="collapse show navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0"
+            <nav class="collapse navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0"
                  id="navbar-vertical">
-                <div class="navbar-nav w-100 overflow-hidden">
-                    <a href="#" class="nav-item nav-link">Dresses</a>
-                    <a href="" class="nav-item nav-link">Shirts</a>
-                    <a href="" class="nav-item nav-link">Jeans</a>
-                </div>
-            </nav>
-            <nav th:if="${page} != 'index'"
-                 class="collapse navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0"
-                 id="navbar-vertical">
-                <div class="navbar-nav w-100 overflow-hidden">
-                    <a href="#" class="nav-item nav-link">Dresses</a>
-                    <a href="" class="nav-item nav-link">Shirts</a>
-                    <a href="" class="nav-item nav-link">Jeans</a>
+                <div class="navbar-nav w-100 overflow-hidden" id="listCategory">
+
                 </div>
             </nav>
         </div>
@@ -140,7 +128,8 @@
                         <a href="/signin" class="nav-item nav-link">Sign in</a>
                     </div>
                 </div>
-            </nav>lo
+            </nav>
+            lo
             <div id="header-carousel" class="carousel slide" data-ride="carousel" th:fragment="carousel">
                 <ol class="carousel-indicators">
                     <li data-target="#header-carousel" data-slide-to="0" class="active"></li>
