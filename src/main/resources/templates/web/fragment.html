@@ -68,7 +68,7 @@
         <div class="col-lg-6 col-6 text-left">
             <form action="">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for products">
+                    <input type="text" class="form-control" placeholder="Tìm kiếm sách">
                     <div class="input-group-append">
                             <span class="input-group-text bg-transparent text-primary">
                                 <i class="fa fa-search"></i>
@@ -97,7 +97,7 @@
         <div class="col-lg-3 d-none d-lg-block" th:fragment="category">
             <a class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100"
                data-toggle="collapse" href="#navbar-vertical" style="height:65px; margin-top: -1px; padding: 0 30px;">
-                <h6 class="m-0">Categories</h6>
+                <h6 class="m-0">Danh mục</h6>
                 <i class="fa fa-angle-down text-dark"></i>
             </a>
             <nav class="collapse navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0"
@@ -118,14 +118,14 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto py-0">
-                        <a href="/" class="nav-item nav-link active">Home</a>
-                        <a href="/shop" class="nav-item nav-link">Shop</a>
-                        <a href="/product/detail" class="nav-item nav-link">Shop Detail</a>
-                        <a href="/about" class="nav-item nav-link">About us</a>
-                        <a href="/contact" class="nav-item nav-link">Contact</a>
+                        <a href="/" class="nav-item nav-link active">Trang chủ</a>
+                        <a href="/danh-sach-san-pham" class="nav-item nav-link">Sản phẩm</a>
+                        <a href="/danh-sach-san-pham" class="nav-item nav-link">Giảm giá</a>
+                        <a href="/ve-chung-toi" class="nav-item nav-link">Về chúng tôi</a>
+                        <a href="/lien-he" class="nav-item nav-link">Liên hệ</a>
                     </div>
                     <div class="navbar-nav ml-auto py-0">
-                        <a href="/signin" class="nav-item nav-link">Sign in</a>
+                        <a href="/dang-nhap" class="nav-item nav-link">Đăng nhập</a>
                     </div>
                 </div>
             </nav>
@@ -138,13 +138,13 @@
                 </ol>
                 <div class="carousel-inner">
                     <div class="carousel-item active" style="height: 410px;">
-                        <img class="img-fluid" th:src="@{/web/images/banner1.png}" alt="Image">
+                        <img class="img-fluid" th:src="@{/web/images/banner/banner1.png}" alt="Image">
                     </div>
                     <div class="carousel-item" style="height: 410px;">
-                        <img class="img-fluid" th:src="@{/web/images/banner2.jpg}" alt="Image">
+                        <img class="img-fluid" th:src="@{/web/images/banner/banner2.jpg}" alt="Image">
                     </div>
                     <div class="carousel-item" style="height: 410px;">
-                        <img class="img-fluid" th:src="@{/web/images/banner3.jpg}" alt="Image">
+                        <img class="img-fluid" th:src="@{/web/images/banner/banner3.jpg}" alt="Image">
                     </div>
                 </div>
             </div>

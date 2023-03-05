@@ -4,6 +4,6 @@ import com.cdweb.bookstore.dto.CategoryDTO;
 
 import java.util.List;
 
-public interface CategoryService {
+public interface ICategoryService {
     public List<CategoryDTO> findAll();
 }

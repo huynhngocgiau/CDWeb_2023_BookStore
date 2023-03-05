@@ -4,7 +4,7 @@ import com.cdweb.bookstore.converter.CategoryConverter;
 import com.cdweb.bookstore.dto.CategoryDTO;
 import com.cdweb.bookstore.entities.CategoryEntity;
 import com.cdweb.bookstore.repository.CategoryRepository;
-import com.cdweb.bookstore.service.CategoryService;
+import com.cdweb.bookstore.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 @Service
-public class CategoryServiceImp implements CategoryService {
+public class CategoryServiceImp implements ICategoryService {
     @Autowired
     private CategoryRepository catRepo;
     @Autowired

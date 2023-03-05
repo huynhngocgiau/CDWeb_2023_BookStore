@@ -118,7 +118,7 @@
         success: function (results) {
             var str = "";
             $.each(results, function (index, category) {
-                str += "<a href='#' class='nav-item nav-link'>" + category.name + "</a>";
+                str += "<a href='/danh-sach-san-pham?category=" + category.code + "' class='nav-item nav-link'>" + category.name + "</a>";
             });
             $("#listCategory").html(str);
         }
@@ -127,5 +127,13 @@
     //show category list on index page
     if (window.location.pathname == "/") $("#navbar-vertical").addClass("show");
     else $("#navbar-vertical").removeClass("show");
+
+	//category position absolute in another page except index
+    if (window.location.pathname == "/" || window.location.pathname == "/trang-chu"){
+        $("#navbar-vertical").removeClass(["position-absolute", "bg-light", "style-width-cat"]);
+    }
+    else {
+        $("#navbar-vertical").addClass(["position-absolute", "bg-light", "style-width-cat"]);
+    }
 })(jQuery);
 
