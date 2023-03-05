@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th2 17, 2023 lúc 04:15 AM
+-- Thời gian đã tạo: Th3 05, 2023 lúc 06:28 AM
 -- Phiên bản máy phục vụ: 10.4.24-MariaDB
 -- Phiên bản PHP: 8.0.19
 
@@ -52,25 +52,34 @@ INSERT INTO `author` (`authorID`, `name`, `created_at`, `updated_at`) VALUES
 CREATE TABLE `book` (
   `id` int(11) NOT NULL,
   `title` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `yearPublic` int(11) DEFAULT NULL,
-  `totalPage` int(11) DEFAULT NULL,
+  `year_public` int(11) DEFAULT NULL,
+  `total_page` int(11) DEFAULT NULL,
   `categoryID` int(11) NOT NULL,
-  `publiser` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `publisher` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL,
   `price` int(11) NOT NULL,
-  `discountPrice` int(11) DEFAULT NULL,
   `quantity_sold` int(11) NOT NULL,
   `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL
+  `updated_at` datetime DEFAULT NULL,
+  `active` bit(1) NOT NULL,
+  `hot` bit(1) NOT NULL,
+  `news` bit(1) NOT NULL,
+  `discount_percent` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `book`
 --
 
-INSERT INTO `book` (`id`, `title`, `yearPublic`, `totalPage`, `categoryID`, `publiser`, `description`, `price`, `discountPrice`, `quantity_sold`, `created_at`, `updated_at`) VALUES
-(1, 'Đôremon và miền đất hứa', 2006, 106, 1, 'Nhà xuất bản Kim Đồng', 'Chuyến phiêu lưu khám phá miền đất hứa đầy thú vị và vui tươi của Doremon và những người bạn.', 15000, NULL, 159, '2023-02-17 09:41:44', NULL),
-(2, 'English Vocabulary in Use: Pre-Intermediate and Intermediate Book with Answers: Vocabulary Reference and Practice (Kèm CD)', NULL, 264, 4, 'CAMBRIDGE UNIVERSITY', 'Vocabulary explanations and practice for pre-intermediate level (B1) learners of English. Perfect for both self-study and classroom activities. Quickly expand your vocabulary with over 100 units of easy to understand explanations and practice exercises. Be confident about what you are learning, thanks to Cambridge research into how English is really spoken and written, and get better at studying by yourself, with units on learning vocabulary, personalised practice and an easy to use answer key.\r\nGiá sản phẩm trên Tiki đã bao gồm thuế theo luật hiện hành. Bên cạnh đó, tuỳ vào loại sản phẩm, hình thức và địa chỉ giao hàng mà có thể phát sinh thêm chi phí khác như phí vận chuyển, phụ phí hàng cồng kềnh, thuế nhập khẩu (đối với đơn hàng giao từ nước ngoài có giá trị trên 1 triệu đồng).....', 193000, 183000, 50, NULL, NULL);
+INSERT INTO `book` (`id`, `title`, `year_public`, `total_page`, `categoryID`, `publisher`, `description`, `price`, `quantity_sold`, `created_at`, `updated_at`, `active`, `hot`, `news`, `discount_percent`) VALUES
+(1, 'Đôremon đi tìm miền đất hứa', 2006, 106, 1, 'Nhà xuất bản Kim Đồng', 'Chuyến phiêu lưu khám phá miền đất hứa đầy thú vị và vui tươi của Doremon và những người bạn.', 15000, 159, '2023-02-17 09:41:44', NULL, b'1', b'0', b'0', 15),
+(2, 'English Vocabulary in Use: Pre-Intermediate and Intermediate Book with Answers: Vocabulary Reference and Practice (Kèm CD)', 2013, 264, 4, 'CAMBRIDGE UNIVERSITY', 'Vocabulary explanations and practice for pre-intermediate level (B1) learners of English. Perfect for both self-study and classroom activities. Quickly expand your vocabulary with over 100 units of easy to understand explanations and practice exercises. Be confident about what you are learning, thanks to Cambridge research into how English is really spoken and written, and get better at studying by yourself, with units on learning vocabulary, personalised practice and an easy to use answer key.\r\nGiá sản phẩm trên Tiki đã bao gồm thuế theo luật hiện hành. Bên cạnh đó, tuỳ vào loại sản phẩm, hình thức và địa chỉ giao hàng mà có thể phát sinh thêm chi phí khác như phí vận chuyển, phụ phí hàng cồng kềnh, thuế nhập khẩu (đối với đơn hàng giao từ nước ngoài có giá trị trên 1 triệu đồng).....', 193000, 50, NULL, NULL, b'1', b'0', b'0', 10),
+(3, 'Conan Thám tử lừng danh - Khúc nhạc cầu siêu', 2009, 105, 1, 'Nhà xuất bản Kim Đồng', 'Theo chân cuộc hành trình của cậu bé thám tử trong cơ thể bị thu nhỏ - Conan, khám phá những vụ án bí ẩn.', 25000, 50, NULL, NULL, b'1', b'1', b'1', 5),
+(4, 'Truyện tranh Conan tuyển tập đặc biệt - Conan vs tổ chức áo đen', 2017, 200, 1, 'Kim Đồng', '', 36000, 25, NULL, NULL, b'1', b'1', b'0', 20),
+(5, 'Thám tử lừng danh Conan - Tập 95', 2007, 125, 1, 'Kim Đồng', 'Mở đầu câu truyện, cậu học sinh trung học 17 tuổi Shinichi Kudo bị biến thành cậu bé Conan Edogawa. Shinichi trong phần đầu của Thám tử lừng danh Conan được miêu tả là một thám tử học đường xuất sắc. Trong một lần đi chơi công viên \"Miền Nhiệt đới\" với cô bạn từ thuở nhỏ Ran Mori, cậu tình cờ chứng kiến vụ một án giết người, Kishida - một hành khách trong trò chơi Chuyến tàu tốc hành đã bị giết một cách dã man. Cậu đã giúp cảnh sát làm sáng tỏ vụ án. Trên đường về nhà, cậu vô tình phát hiện một vụ làm ăn mờ ám của những người đàn ông mặc toàn đồ đen. Khi chúng phát hiện ra cậu, Shinichi đã bị đánh ngất đi. Sau đó những người đàn ông áo đen đó đã cho cậu uống một thứ thuốc độc chưa qua thử nghiệm là Apotoxin-4869 (APTX 4869) với mục đích thủ tiêu cậu. Tuy nhiên chất độc đã không giết chết Kudo. Khi tỉnh lại, cậu bàng hoàng nhận thấy mình đã bị teo nhỏ lại thành hình dạng của một cậu học sinh tiểu học.', 25000, 50, NULL, NULL, b'1', b'0', b'1', 15),
+(6, 'Thám tử lừng danh Conan - Tập 80', 2007, 156, 1, 'Kim Đồng', 'Mở đầu câu truyện, cậu học sinh trung học 17 tuổi Shinichi Kudo bị biến thành cậu bé Conan Edogawa. Shinichi trong phần đầu của Thám tử lừng danh Conan được miêu tả là một thám tử học đường xuất sắc. Trong một lần đi chơi công viên \"Miền Nhiệt đới\" với cô bạn từ thuở nhỏ Ran Mori, cậu tình cờ chứng kiến vụ một án giết người, Kishida - một hành khách trong trò chơi Chuyến tàu tốc hành đã bị giết một cách dã man. Cậu đã giúp cảnh sát làm sáng tỏ vụ án. Trên đường về nhà, cậu vô tình phát hiện một vụ làm ăn mờ ám của những người đàn ông mặc toàn đồ đen. Khi chúng phát hiện ra cậu, Shinichi đã bị đánh ngất đi. Sau đó những người đàn ông áo đen đó đã cho cậu uống một thứ thuốc độc chưa qua thử nghiệm là Apotoxin-4869 (APTX 4869) với mục đích thủ tiêu cậu. Tuy nhiên chất độc đã không giết chết Kudo. Khi tỉnh lại, cậu bàng hoàng nhận thấy mình đã bị teo nhỏ lại thành hình dạng của một cậu học sinh tiểu học.', 25000, 16, NULL, NULL, b'1', b'1', b'1', 10),
+(7, 'Usborne Big Picture Book of General Knowledge', 2013, 32, 4, 'USBORNE PUBLISHING', 'When were the first fireworks made? How many satellites have been sent into space? And what does the word kimono mean? Find out the answers to these questions and more in this stunningly illustrated book, guaranteed to keep fact-loving, question-asking children entertained for hours on end. Includes internet links to websites to find out even more.', 378000, 16, NULL, NULL, b'1', b'1', b'1', 0),
+(8, 'Lift-the-Flap Very First Questions And Answers: Why Do I Have To Go To Bed?', 2020, 50, 4, 'USBORNE PUBLISHING', 'This charming book explains the dos and don\'ts for a good night\'s sleep. Discover what siestas are for, how sea otters sleep and why the dark doesn\'t need to be scary.', 176000, 9, NULL, NULL, b'1', b'0', b'1', 0);
 
 -- --------------------------------------------------------
 
@@ -102,6 +111,16 @@ CREATE TABLE `bookimage` (
   `path` text COLLATE utf8_unicode_ci NOT NULL,
   `bookID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `bookimage`
+--
+
+INSERT INTO `bookimage` (`imageID`, `path`, `bookID`) VALUES
+(1, '/web/images/book/truyen-tranh/conan-80.jpg', 6),
+(2, '/web/images/book/truyen-tranh/conan-95.jpg', 5),
+(5, '/web/images/book/truyen-tranh/conan-special-1.jpg', 4),
+(6, '/web/images/book/truyen-tranh/conan-khuc-nhac-sieu-cau.jpg', 3);
 
 -- --------------------------------------------------------
 
@@ -154,7 +173,10 @@ INSERT INTO `category` (`categoryID`, `code`, `name`, `created_at`, `updated_at`
 (4, 'tieng-anh', 'Tiếng Anh', NULL, NULL),
 (5, 'tam-ly', 'Tâm lý - Giới tính', NULL, NULL),
 (6, 'lich-su', 'Lịch sử', NULL, NULL),
-(7, 'khoa-hoc', 'Khoa học - Kỹ thuật', NULL, NULL);
+(7, 'khoa-hoc', 'Khoa học - Kỹ thuật', NULL, NULL),
+(8, 'tre-em', 'Trẻ em', '2023-03-02 19:22:24', NULL),
+(9, 'kinh-doanh', 'Kinh doanh', NULL, NULL),
+(10, 'nau-an', 'Nấu ăn', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -318,13 +340,13 @@ ALTER TABLE `author`
 -- AUTO_INCREMENT cho bảng `book`
 --
 ALTER TABLE `book`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT cho bảng `bookimage`
 --
 ALTER TABLE `bookimage`
-  MODIFY `imageID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `imageID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT cho bảng `cart`
@@ -336,7 +358,7 @@ ALTER TABLE `cart`
 -- AUTO_INCREMENT cho bảng `category`
 --
 ALTER TABLE `category`
-  MODIFY `categoryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `categoryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT cho bảng `orders`

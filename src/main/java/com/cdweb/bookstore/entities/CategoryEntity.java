@@ -2,7 +2,9 @@ package com.cdweb.bookstore.entities;
 
 import jakarta.persistence.*;
 
-import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "category")
@@ -13,10 +15,12 @@ public class CategoryEntity {
     private String code;
     @Column(name = "name", length = 50)
     private String name;
-    @Column(name = "created_at")
-    private Date created_at;
+   @Column(name = "created_at")
+    private Timestamp created_at;
     @Column(name = "updated_at")
-    private Date updated_at;
+    private Timestamp updated_at;
+    @OneToMany(mappedBy = "category")
+    private List<BookEntity> books = new ArrayList<>();
 
     public int getCategoryID() {
         return categoryID;
@@ -42,19 +46,19 @@ public class CategoryEntity {
         this.name = name;
     }
 
-    public Date getCreated_at() {
+    public Timestamp getCreated_at() {
         return created_at;
     }
 
-    public void setCreated_at(Date created_at) {
+    public void setCreated_at(Timestamp created_at) {
         this.created_at = created_at;
     }
 
-    public Date getUpdated_at() {
+    public Timestamp getUpdated_at() {
         return updated_at;
     }
 
-    public void setUpdated_at(Date updated_at) {
+    public void setUpdated_at(Timestamp updated_at) {
         this.updated_at = updated_at;
     }
 }
