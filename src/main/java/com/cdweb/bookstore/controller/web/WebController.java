@@ -23,10 +23,6 @@ public class WebController {
         return mav;
     }
 
-    public List<BookDTO> test() {
-        return bookService.findNewBook(true, true);
-    }
-
     @GetMapping("/lien-he")
     public ModelAndView contact() {
         return new ModelAndView("web/contact.html");

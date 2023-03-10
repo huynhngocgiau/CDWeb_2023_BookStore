@@ -27,7 +27,8 @@ public class BookEntity {
 
     private double discount_percent;
 
-    private int quantity_sold;
+    @Column(name = "quantity_sold")
+    private int quantitySold;
 
     private Timestamp created_at;
 
@@ -107,12 +108,12 @@ public class BookEntity {
         this.discount_percent = discount_percent;
     }
 
-    public int getQuantity_sold() {
-        return quantity_sold;
+    public int getQuantitySold() {
+        return quantitySold;
     }
 
-    public void setQuantity_sold(int quantity_sold) {
-        this.quantity_sold = quantity_sold;
+    public void setQuantitySold(int quantitySold) {
+        this.quantitySold = quantitySold;
     }
 
     public Timestamp getCreated_at() {

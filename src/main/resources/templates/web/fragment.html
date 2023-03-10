@@ -66,13 +66,15 @@
             </a>
         </div>
         <div class="col-lg-6 col-6 text-left">
-            <form action="">
+            <form th:action="@{/san-pham}" method="get">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Tìm kiếm sách">
                     <div class="input-group-append">
+                        <button type="submit" class="btn">
                             <span class="input-group-text bg-transparent text-primary">
                                 <i class="fa fa-search"></i>
                             </span>
+                        </button>
                     </div>
                 </div>
             </form>
@@ -118,11 +120,11 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto py-0">
-                        <a href="/" class="nav-item nav-link active">Trang chủ</a>
-                        <a href="/danh-sach-san-pham" class="nav-item nav-link">Sản phẩm</a>
-                        <a href="/danh-sach-san-pham" class="nav-item nav-link">Giảm giá</a>
-                        <a href="/ve-chung-toi" class="nav-item nav-link">Về chúng tôi</a>
-                        <a href="/lien-he" class="nav-item nav-link">Liên hệ</a>
+                        <a href="/" class="nav-item nav-link active content-link">Trang chủ</a>
+                        <a href="/san-pham" class="nav-item nav-link content-link">Sản phẩm</a>
+                        <a href="/san-pham" class="nav-item nav-link content-link">Giảm giá</a>
+                        <a href="/ve-chung-toi" class="nav-item nav-link content-link">Về chúng tôi</a>
+                        <a href="/lien-he" class="nav-item nav-link content-link">Liên hệ</a>
                     </div>
                     <div class="navbar-nav ml-auto py-0">
                         <a href="/dang-nhap" class="nav-item nav-link">Đăng nhập</a>
