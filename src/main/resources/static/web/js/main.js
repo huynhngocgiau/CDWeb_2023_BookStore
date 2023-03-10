@@ -118,7 +118,7 @@
         success: function (results) {
             var str = "";
             $.each(results, function (index, category) {
-                str += "<a href='/danh-sach-san-pham?category=" + category.code + "' class='nav-item nav-link'>" + category.name + "</a>";
+                str += "<a href='/san-pham?category=" + category.code + "' class='nav-item nav-link'>" + category.name + "</a>";
             });
             $("#listCategory").html(str);
         }
@@ -128,12 +128,210 @@
     if (window.location.pathname == "/") $("#navbar-vertical").addClass("show");
     else $("#navbar-vertical").removeClass("show");
 
-	//category position absolute in another page except index
-    if (window.location.pathname == "/" || window.location.pathname == "/trang-chu"){
+    //category position absolute in another page except index
+    if (window.location.pathname == "/" || window.location.pathname == "/trang-chu") {
         $("#navbar-vertical").removeClass(["position-absolute", "bg-light", "style-width-cat"]);
-    }
-    else {
+    } else {
         $("#navbar-vertical").addClass(["position-absolute", "bg-light", "style-width-cat"]);
     }
+
+    //load ajax cho trang san pham
+    $.ajax({
+        url: "/danh-sach-san-pham" + window.location.search,
+        cache: false,
+        dataType: "json",
+        success: function (result) {
+            show(result)
+        }
+    });
+
+    $("input[type=radio][name=filterByPrice]").click(function () {
+        filterByPrice();
+    })
+
+    $(".content-link").click(function () {
+        $(".content-link").removeClass("active");
+        $(this).addClass("active");
+    })
 })(jQuery);
 
+function show(response) {
+    //result là danh sách bookdto của bookoutput, bên bookcontroller sẽ trả về
+    $("#list-book").html(showBook(response.result));
+    $("#pagination").html(showPagination(response.page, response.totalPage));
+}
+
+//tham số page sẽ được lấy từ url
+function movePage(page) {
+    // ?category=truyen-tranh&order=asc
+    var urlParameter = window.location.search;
+    $.ajax({
+        //lấy từ vị trí 1 là bỏ dấu ?, vd như urlParameter
+        // là ?category=truyen-tranh thì subString(1) là lấy từ category
+        url: "/danh-sach-san-pham?page=" + page + "&" + urlParameter.substring(1),
+        cache: false,
+        dataType: "json",
+        success: function (result) {
+            console.log(result)
+            show(result)
+        }
+    });
+}
+
+function showBook(listBook) {
+    var str = "";
+    for (let book of listBook) {
+        str += "<div class='col-lg-4 col-md-6 col-sm-12 pb-1'>";
+        str += "<div class='card product-item border-0 mb-4'>";
+        str += "<div class='card-header product-img position-relative overflow-hidden bg-transparent border p-0'>";
+        str += "<img class='img-fluid w-100' src='/web/images/book/truyen-tranh/conan-1.jpg' alt=''>";
+        str += "</div>";
+
+        //hien thi sach
+        str += "<div class='card-body border-left border-right text-center pt-4 pb-3'>";
+        str += "<h6 class='text-truncate text-danger mb-3'>" + book.title + "</h6>";
+        str += "<div class='d-flex justify-content-center'>"
+        str += "<h6 class='new-price'>" + book.discountPrice + "</h6>";
+        str += "<p class='ml-2' style='text-decoration: line-through; font-size: smaller'>";
+        str += book.discount_percent ? book.priceFormat : '';
+        str += "</p>";
+        str += "</div>";
+        str += "</div>";
+
+        //button chi tiet
+        str += " <div class='card-footer d-flex justify-content-between bg-light border'>";
+        str += "<a href='/chi-tiet?id=" + book.id + "' class='btn btn-sm text-dark p-0'><i class='fas fa-eye text-primary mr-1'></i>Chi tiết</a>";
+        str += " <a href='' class='btn btn-sm text-dark p-0'><i class='fas fa-shopping-cart text-primary mr-1'></i>Giỏ hàng</a>";
+        str += "</div>";
+        str += "</div>";
+        str += "</div>";
+
+    }
+    return str;
+}
+
+function showPagination(page, totalPage) {
+    var str = "<ul class='pagination justify-content-center mb-3'>";
+
+    //trang dau tien thi nut prev se disabled
+    if (page == 1) {
+        //button trang dau
+        str += "<li class='page-item disabled'>";
+        str += "<a class='page-link'>Trang đầu</a>";
+        str += "</li>"
+        //button mui ten
+        str += "<li class='page-item disabled'>";
+        str += "<a class='page-link' aria-label='previous'>";
+        str += "<span aria-hidden='true'>&laquo;</span>";
+        str += "<span class='sr-only'>Previous</span>";
+        str += "</a>";
+        str += "</li>"
+    } else {
+        //button trang dau
+        str += "<li class='page-item'>";
+        str += "<a class='page-link' onclick='movePage(" + 1 + ")'>Trang đầu</a>";
+        str += "</li>"
+        //button mui ten
+        str += "<li class='page-item'>";
+        str += "<a class='page-link' aria-label='previous' onclick='movePage(" + (page - 1) + "'>";
+        str += "<span aria-hidden='true'>&laquo;</span>";
+        str += "<span class='sr-only'>Previous</span>";
+        str += "</a>";
+        str += "</li>"
+    }
+
+    //hien thi cac nut pagination
+    for (let i = 1; i <= totalPage; i++) {
+        // neu i bang page hien tai thi cho nut do active
+        if (i == page) {
+            str += "<li class='page-item active'><a class='page-link'>" + i + "</a></li>";
+        } else {
+            //cac nut khac khong phai page hien tai thi khong active, them su click
+            str += "<li class='page-item'><a class='page-link' onclick='movePage(" + i + ")'>" + i + "</a></li>";
+        }
+    }
+
+    //nut cuoi cung
+    if (page == totalPage) {
+        //button mui ten
+        str += "<li class='page-item disabled'>";
+        str += "<a class='page-link' aria-label='next'>";
+        str += "<span aria-hidden='true'>&raquo;</span>";
+        str += "<span class='sr-only'>next</span>";
+        str += "</a>";
+        str += "</li>"
+        //button trang dau
+        str += "<li class='page-item disabled'>";
+        str += "<a class='page-link'>Trang cuối</a>";
+        str += "</li>"
+    } else {
+        //button mui ten
+        str += "<li class='page-item'>";
+        str += "<a class='page-link' aria-label='next' onclick='movePage(" + (page + 1) + ")'>";
+        str += "<span aria-hidden='true'>&raquo;</span>";
+        str += "<span class='sr-only'>next</span>";
+        str += "</a>"
+        str += "</li>"
+        //button trang cuoi
+        str += "<li class='page-item'>";
+        str += "<a class='page-link' onclick='movePage(" + totalPage + ")'>Trang cuối</a>";
+        str += "</li>"
+    }
+    str += "</ul>";
+    return str;
+}
+
+//su kien sap xep
+function sort() {
+    var sortValue = $("#sortSelect").val();
+    var searchValue = window.location.search;
+
+    var sort = "";
+    if (searchValue == "") {
+        sort = sortValue;
+    } else {
+        sort = "&" + sortValue.substring(1);
+    }
+    var query = searchValue + sort;
+    $.ajax({
+        url: 'danh-sach-san-pham' + query,
+        cache: false,
+        dataType: "json",
+        success: function (result) {
+            show(result)
+        }
+    });
+}
+
+function searchTitle() {
+    var searchValue = $("#search").val();
+    $.ajax({
+        url: "danh-sach-san-pham?title=" + searchValue,
+        cache: false,
+        dataType: "json",
+        success: function (result) {
+            show(result)
+        }
+    });
+}
+
+function filterByPrice() {
+    var filterPrice = $("input[type=radio][name=filterByPrice]:checked").val();
+    console.log(filterPrice)
+    var searchValue = window.location.search;
+    var filter = "";
+    if (searchValue == "") {
+        filter = filterPrice;
+    } else {
+        filter = "&" + filterPrice.substring(1);
+    }
+    var query = searchValue + filter;
+    $.ajax({
+        url: "danh-sach-san-pham" + query,
+        cache: false,
+        dataType: "json",
+        success: function (result) {
+            show(result)
+        }
+    });
+}

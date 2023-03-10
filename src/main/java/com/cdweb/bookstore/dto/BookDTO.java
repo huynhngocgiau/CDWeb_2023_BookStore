@@ -28,7 +28,7 @@ public class BookDTO {
 
     private double discount_percent;
 
-    private int quantity_sold;
+    private int quantitySold;
 
     private CategoryDTO category;
 //    private List<BookImageDTO> images = new ArrayList<>();
@@ -98,12 +98,12 @@ public class BookDTO {
         this.discount_percent = discount_percent;
     }
 
-    public int getQuantity_sold() {
-        return quantity_sold;
+    public int getQuantitySold() {
+        return quantitySold;
     }
 
-    public void setQuantity_sold(int quantity_sold) {
-        this.quantity_sold = quantity_sold;
+    public void setQuantitySold(int quantitySold) {
+        this.quantitySold = quantitySold;
     }
 
     public CategoryDTO getCategory() {
@@ -124,16 +124,23 @@ public class BookDTO {
 
     public String getDiscountPrice() {
         double percent = this.discount_percent / 100;
-        double discountPrice= this.price * (1- percent);
-        DecimalFormat df= new DecimalFormat("###,###,###");
+        double discountPrice = this.price * (1 - percent);
+        DecimalFormat df = new DecimalFormat("###,###,###");
         return df.format(discountPrice) + " VNĐ";
 
     }
-    public String formatPrice(int price){
-        DecimalFormat df= new DecimalFormat("###,###,###");
+
+    public String formatPrice(int price) {
+        DecimalFormat df = new DecimalFormat("###,###,###");
         return df.format(price) + " VNĐ";
     }
-    public String getPercentFormat(){
-        return "-"+this.discount_percent +"%";
+
+    public String getPriceFormat() {
+        DecimalFormat df = new DecimalFormat("###,###,###");
+        return df.format(this.price) + " VNĐ";
+    }
+
+    public String getPercentFormat() {
+        return "-" + this.discount_percent + "%";
     }
 }
