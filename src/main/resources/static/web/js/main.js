@@ -153,6 +153,7 @@
         $(".content-link").removeClass("active");
         $(this).addClass("active");
     })
+
 })(jQuery);
 
 function show(response) {
@@ -334,4 +335,128 @@ function filterByPrice() {
             show(result)
         }
     });
+}
+
+//check for registation
+function checkEmail() {
+    var emailInput = $("#email").val();
+    if (emailInput.length == 0) {
+        $("#emailError").html("Vui lòng không bỏ trống email");
+        $("#emailError").css({
+            display: "block",
+            color: "red",
+            fontSize: 12
+        });
+        return false;
+    } else {
+        var mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        if (emailInput.match(mailformat)) {
+            $.ajax({
+                method: 'GET',
+                url: 'check-mail',
+                cache: 'false',
+                data: {
+                    email: emailInput
+                },
+                success: function (result) {
+                    if (result == emailInput) {
+                        $("#emailError").html("Email đã tồn tại. Vui lòng thử lại email khác");
+                        $("#emailError").css({
+                            display: "block",
+                            color: "red",
+                            fontSize: 12
+                        });
+                    } else {
+                        $("#emailError").html("");
+                        $("#emailError").css({
+                            display: "none",
+                        });
+                    }
+                }
+            })
+            try {
+                return true;
+            } catch (e) {
+                return false;
+            }
+        } else {
+            $("#emailError").html("Email không hợp lệ");
+            $("#emailError").css({
+                display: "block",
+                color: "red",
+                fontSize: 12
+            });
+            return false;
+        }
+    }
+}
+
+function checkUsername() {
+    var userInput = $("input[type=text][name=username]").val();
+    if (userInput.length == 0) {
+        $("#userError").html("Vui lòng không bỏ trống tên người dùng");
+        $("#userError").css({
+            display: "block",
+            color: "red",
+            fontSize: 12
+        });
+        return false;
+    } else {
+        $("#userError").html("");
+        $("#userError").css({
+            display: "none"
+        });
+        return true;
+    }
+}
+
+function checkPass() {
+    var passInput = $("input[type=password][name=password]").val();
+    if (passInput.length < 8) {
+        $("#passError").html("Vui lòng nhập mật khẩu từ 8 ký tự trở lên");
+        $("#passLoginError").html("Vui lòng nhập mật khẩu từ 8 ký tự trở lên");
+        $("#passError").css({
+            display: "block",
+            color: "red",
+            fontSize: 12
+        });
+        return false;
+    } else {
+        $("#passError").html("");
+        $("#passLoginError").html("");
+        $("#passError").css({
+            display: "none"
+        });
+        return true;
+    }
+}
+
+function checkRePassword() {
+    var passInput = $("input[type=password][name=password]").val();
+    var rePassInput = $("input[type=password][name=rePassword]").val();
+    if (rePassInput.length == 0) {
+        $("#rePassError").html("Vui lòng nhập lại mật khẩu");
+        $("#rePassError").css({
+            display: "block",
+            color: "red",
+            fontSize: 12
+        });
+        return false;
+    } else {
+        if (rePassInput != passInput) {
+            $("#rePassError").html("Mật khẩu không khớp");
+            $("#rePassError").css({
+                display: "block",
+                color: "red",
+                fontSize: 12
+            });
+            return false;
+        } else {
+            $("#rePassError").html("");
+            $("#rePassError").css({
+                display: "none"
+            });
+            return true;
+        }
+    }
 }
