@@ -5,9 +5,11 @@ import com.cdweb.bookstore.service.IBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -36,8 +38,7 @@ public class WebController {
 
     @GetMapping("/gio-hang")
     public ModelAndView cart() {
-        ModelAndView mav = new ModelAndView("web/cart.html");
-        return mav;
+        return new ModelAndView("web/signin.html");
     }
 
     @GetMapping("/thanh-toan")
@@ -52,8 +53,10 @@ public class WebController {
     }
 
     @GetMapping("/dang-nhap")
-    public ModelAndView signin() {
-        return new ModelAndView("web/signin");
+    public ModelAndView signin(@RequestParam(name = "error", required = false) boolean error) {
+        ModelAndView mav = new ModelAndView("web/signin");
+        if (error) mav.addObject("message", "Email hoặc mật khẩu không đúng");
+        return mav;
     }
 
     //admin book

@@ -247,64 +247,53 @@
 <body>
 <div class="container" id="container">
     <div class="form-container sign-up-container">
-        <form action="#">
-            <h1 class="form-title">Create Account</h1>
-            <div class="social-container">
-                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-            </div>
-            <span class="form-subtext">or use your email for registration</span>
-            <input type="text" placeholder="Name"/>
-            <input type="email" placeholder="Email"/>
-            <input type="password" placeholder="Password"/>
-            <button>Sign Up</button>
+        <form onsubmit="return checkValidateForm()" th:action="@{/dang-ky}" th:object="${User}" method="post">
+            <h1 class="form-title">Tạo tài khoản</h1>
+            <input type="text" name="username" onblur="checkUsername()" placeholder="Tên người dùng"/>
+            <div id="userError" style="display: none"></div>
+            <input type="text" id="email" name="email" onblur="checkEmail()" onkeyup="checkEmail()"
+                   placeholder="Email"/>
+            <div id="emailError" style="display: none"></div>
+            <input type="password" name="password" onblur="checkPass()" placeholder="Mật khẩu ít nhất có 8 kí tự"/>
+            <div id="passError" style="display: none"></div>
+            <input type="password" name="rePassword" onblur="checkRePassword()" placeholder="Nhập lại mật khẩu"/>
+            <div id="rePassError" style="display: none"></div>
+            <button type="submit">Đăng ký</button>
         </form>
     </div>
     <div class="form-container sign-in-container">
-        <form action="#">
-            <h1 class="form-title">Sign in</h1>
-            <div class="social-container">
-                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-            </div>
-            <span class="form-subtext">or use your account</span>
-            <input type="email" placeholder="Email"/>
-            <input type="password" placeholder="Password"/>
-            <a href="#" class="mt-2 mb-2">Forgot your password?</a>
-            <a href="/" class="mb-2">Return Home</a>
-            <button>Sign In</button>
+        <form th:action="@{login}" method="post">
+            <h1 class="form-title">Đăng nhập</h1>
+            <span class="text-danger" th:utext="${message} ? ${message}"></span>
+            <input type="email" name="email" placeholder="Email" required/>
+            <input type="password" name="password" onblur="checkPass()" placeholder="Mật khẩu"/>
+            <div id="passLoginError" style="display: none"></div>
+            <a th:href="@{quen-mat-khau}" class="mt-2 mb-2">Quên mật khẩu?</a>
+            <a href="/" class="mb-2">Trang chủ</a>
+            <button type="submit">Đăng nhập</button>
         </form>
     </div>
     <div class="overlay-container">
         <div class="overlay">
             <div class="overlay-panel overlay-left">
-                <h1>Welcome Back!</h1>
-                <p>To keep connected with us please login with your personal info</p>
-                <button class="ghost" id="signIn">Sign In</button>
+                <h1>Chào mừng trở lại</h1>
+                <p>Để giữ liên kết với chúng tôi, vui lòng đăng nhập bằng tài khoản của bạn</p>
+                <button class="ghost" id="signIn">Đăng nhập</button>
             </div>
             <div class="overlay-panel overlay-right">
-                <h1>Hello, Friend!</h1>
-                <p>Enter your personal details and start journey with us</p>
-                <button class="ghost" id="signUp">Sign Up</button>
+                <h1>Xin chào quý khách</h1>
+                <p>Tạo tài khoản để khám phá những ưu đãi hấp dẫn</p>
+                <button class="ghost" id="signUp">Đăng ký</button>
             </div>
         </div>
     </div>
 </div>
 <th:block th:insert="~{web/fragment::body/script}"></th:block>
 <script>
-    const signUpButton = document.getElementById('signUp');
-    const signInButton = document.getElementById('signIn');
-    const container = document.getElementById('container');
-
-    signUpButton.addEventListener('click', () => {
-        container.classList.add("right-panel-active");
-    });
-
-    signInButton.addEventListener('click', () => {
-        container.classList.remove("right-panel-active");
-    });
+    //su dung cho su kien onsubmit, sk nay se ktr neu ham checkValidateForm tra ve true thi se thuc hien action
+    function checkValidateForm() {
+        return checkEmail() && checkUsername() && checkPass() && checkRePassword();
+    }
 </script>
 </body>
 </html>
