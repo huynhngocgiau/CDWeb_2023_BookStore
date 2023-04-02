@@ -25,8 +25,8 @@ public class UserServiceImp implements IUserService {
     private UserConverter userConverter;
     @Autowired
     private UsersRepository userRepo;
-//    @Autowired
-    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
     @Autowired
     private RoleRepository roleRepo;
     @Autowired

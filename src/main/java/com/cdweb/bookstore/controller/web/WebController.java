@@ -37,8 +37,8 @@ public class WebController {
     }
 
     @GetMapping("/gio-hang")
-    public ModelAndView cart() {
-        return new ModelAndView("web/signin.html");
+    public ModelAndView cart(Principal principal) {
+        return principal == null ? new ModelAndView("web/signin.html") : new ModelAndView("web/cart.html");
     }
 
     @GetMapping("/thanh-toan")

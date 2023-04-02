@@ -63,4 +63,14 @@ public class UserController {
         return mav;
     }
 
+    @GetMapping("/getUser")
+    public UserDTO getUser(Principal principal) {
+        if (principal != null) {
+            UserDTO user = this.userService.findByEmailAndIsEnable(principal.getName());
+            user.setPassword("");
+            return user;
+        } else {
+            return new UserDTO();
+        }
+    }
 }

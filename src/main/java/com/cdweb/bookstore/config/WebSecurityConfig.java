@@ -23,7 +23,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.authorizeHttpRequests((authz) ->
-                        authz.requestMatchers("/thanh-toan", "/gio-hang").hasRole("USER")
+                        authz.requestMatchers("/thanh-toan", "/gio-hang").hasAnyRole("USER","ADMIN")
                                 .requestMatchers("/admin-page/**").hasRole("ADMIN").anyRequest().permitAll())
                 .formLogin().loginPage("/dang-nhap").loginProcessingUrl("/login").defaultSuccessUrl("/").failureUrl("/dang-nhap?error=true").usernameParameter("email").passwordParameter("password")
                 .and().logout().logoutUrl("/logout").logoutSuccessUrl("/");
