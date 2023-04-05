@@ -49,11 +49,11 @@ public class BookController {
             output.setPage(page);
             output.setTotalPage((int) Math.round(Math.ceil((double) (bookService.countAllByTitleContains(title)) / SIZE)));
 
-        } else if (from != null && to !=null) {
+        } else if (from != null && to != null) {
             output.setResult(bookService.findByPriceBetween(from, to, pageable));
             output.setPage(page);
             output.setTotalPage((int) Math.round(Math.ceil((double) (bookService.countAllByPriceBetween(from, to)) / SIZE)));
-        } else if (from !=null && to == null) {
+        } else if (from != null && to == null) {
             output.setResult(bookService.findByPriceGreaterThan(from, pageable));
             output.setPage(page);
             output.setTotalPage((int) Math.round(Math.ceil((double) (bookService.countAllByPriceGreaterThan(from)) / SIZE)));
@@ -91,9 +91,17 @@ public class BookController {
     public ModelAndView detal(@RequestParam(name = "id") Integer id) {
         ModelAndView mav = new ModelAndView("web/detail.html");
         BookDTO bookById = bookService.findById(id);
-        mav.addObject("book", bookById);
         mav.addObject("list", bookService.findByCategoryIdAnQuantityGreaterThan(bookById.getCategory().getCategoryId(), 50));
         return mav;
     }
 
+    @GetMapping("/hot-book")
+    public List<BookDTO> findHotBook() {
+        return bookService.findHotBook(true, true);
+    }
+
+    @GetMapping("/new-book")
+    public List<BookDTO> findNewBook() {
+        return bookService.findNewBook(true, true);
+    }
 }

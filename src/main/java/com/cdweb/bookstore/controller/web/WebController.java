@@ -20,8 +20,6 @@ public class WebController {
     @GetMapping(value = {"/", "/trang-chu"})
     public ModelAndView index() {
         ModelAndView mav = new ModelAndView("web/index.html");
-        mav.addObject("hotBooks", bookService.findHotBook(true, true));
-        mav.addObject("newBooks", bookService.findNewBook(true, true));
         return mav;
     }
 

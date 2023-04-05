@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 04, 2023 lúc 08:03 AM
--- Phiên bản máy phục vụ: 10.4.27-MariaDB
--- Phiên bản PHP: 8.0.25
+-- Thời gian đã tạo: Th4 05, 2023 lúc 05:23 PM
+-- Phiên bản máy phục vụ: 10.4.24-MariaDB
+-- Phiên bản PHP: 8.0.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,10 +28,10 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `author` (
-  `authorID` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `created_at` date DEFAULT NULL,
-  `updated_at` date DEFAULT NULL
+                          `authorID` int(11) NOT NULL,
+                          `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+                          `created_at` date DEFAULT NULL,
+                          `updated_at` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -62,21 +62,21 @@ INSERT INTO `author` (`authorID`, `name`, `created_at`, `updated_at`) VALUES
 --
 
 CREATE TABLE `book` (
-  `id` int(11) NOT NULL,
-  `title` varchar(200) NOT NULL,
-  `year_public` int(11) DEFAULT NULL,
-  `total_page` int(11) DEFAULT NULL,
-  `categoryID` int(11) NOT NULL,
-  `publisher` varchar(200) DEFAULT NULL,
-  `description` text NOT NULL,
-  `price` int(11) NOT NULL,
-  `quantity_sold` int(11) NOT NULL,
-  `created_at` date DEFAULT NULL,
-  `updated_at` date DEFAULT NULL,
-  `active` bit(1) NOT NULL,
-  `hot` bit(1) NOT NULL,
-  `news` bit(1) NOT NULL,
-  `discount_percent` float NOT NULL
+                        `id` int(11) NOT NULL,
+                        `title` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+                        `year_public` int(11) DEFAULT NULL,
+                        `total_page` int(11) DEFAULT NULL,
+                        `categoryID` int(11) NOT NULL,
+                        `publisher` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+                        `description` text COLLATE utf8_unicode_ci NOT NULL,
+                        `price` int(11) NOT NULL,
+                        `quantity_sold` int(11) NOT NULL,
+                        `created_at` date DEFAULT NULL,
+                        `updated_at` date DEFAULT NULL,
+                        `active` bit(1) NOT NULL,
+                        `hot` bit(1) NOT NULL,
+                        `news` bit(1) NOT NULL,
+                        `discount_percent` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -169,22 +169,9 @@ INSERT INTO `bookimage` (`imageID`, `path`, `bookID`) VALUES
 
 CREATE TABLE `cart` (
   `cartID` int(11) NOT NULL,
-  `userID` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL,
-  `totalMoney` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `cartitem`
---
-
-CREATE TABLE `cartitem` (
-  `cartID` int(11) NOT NULL,
-  `bookID` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL,
-  `price` int(11) NOT NULL
+  `quantity` int(11) DEFAULT NULL,
+  `userID` int(11) DEFAULT NULL,
+  `bookID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -194,11 +181,11 @@ CREATE TABLE `cartitem` (
 --
 
 CREATE TABLE `category` (
-  `categoryID` int(11) NOT NULL,
-  `code` varchar(50) NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `created_at` date DEFAULT NULL,
-  `updated_at` date DEFAULT NULL
+                            `categoryID` int(11) NOT NULL,
+                            `code` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+                            `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+                            `created_at` date DEFAULT NULL,
+                            `updated_at` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -216,6 +203,7 @@ INSERT INTO `category` (`categoryID`, `code`, `name`, `created_at`, `updated_at`
 (8, 'tre-em', 'Trẻ em', '2023-03-02', NULL),
 (9, 'kinh-doanh', 'Kinh doanh', NULL, NULL),
 (10, 'van-hoc', 'Văn học', NULL, NULL);
+
 
 -- --------------------------------------------------------
 
@@ -236,14 +224,14 @@ CREATE TABLE `orderline` (
 --
 
 CREATE TABLE `orders` (
-  `orderID` int(11) NOT NULL,
-  `userID` int(11) NOT NULL,
-  `address` text NOT NULL,
-  `totalMoney` int(11) NOT NULL,
-  `quatity` int(11) NOT NULL,
-  `note` varchar(1000) DEFAULT NULL,
-  `created_at` date DEFAULT NULL,
-  `updated_at` date DEFAULT NULL
+                          `orderID` int(11) NOT NULL,
+                          `userID` int(11) NOT NULL,
+                          `address` text COLLATE utf8_unicode_ci NOT NULL,
+                          `totalMoney` int(11) NOT NULL,
+                          `quatity` int(11) NOT NULL,
+                          `note` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,
+                          `created_at` date DEFAULT NULL,
+                          `updated_at` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -281,11 +269,9 @@ CREATE TABLE `roleuser` (
 --
 
 INSERT INTO `roleuser` (`userID`, `roleID`) VALUES
-(1, 1),
-(2, 2),
-(1, 1),
-(2, 2),
-(3, 2);
+                                                (3, 2),
+                                                (1, 1),
+                                                (2, 2);
 
 -- --------------------------------------------------------
 
@@ -294,20 +280,20 @@ INSERT INTO `roleuser` (`userID`, `roleID`) VALUES
 --
 
 CREATE TABLE `users` (
-  `userID` int(11) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `fullname` varchar(50) DEFAULT NULL,
-  `username` varchar(50) NOT NULL,
-  `birthdate` date DEFAULT NULL,
-  `gender` bit(1) DEFAULT NULL,
-  `phone` varchar(12) DEFAULT NULL,
-  `password` varchar(70) NOT NULL,
-  `avatar_path` text DEFAULT NULL,
-  `status` bit(1) DEFAULT NULL,
-  `confirm_token` varchar(10) DEFAULT NULL,
-  `is_enable` bit(1) DEFAULT NULL,
-  `created_at` date DEFAULT NULL,
-  `updated_at` date DEFAULT NULL
+                         `userID` int(11) NOT NULL,
+                         `email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+                         `fullname` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+                         `username` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+                         `birthdate` date DEFAULT NULL,
+                         `gender` bit(1) DEFAULT NULL,
+                         `phone` varchar(12) COLLATE utf8_unicode_ci DEFAULT NULL,
+                         `password` varchar(70) COLLATE utf8_unicode_ci NOT NULL,
+                         `avatar_path` text COLLATE utf8_unicode_ci DEFAULT NULL,
+                         `status` bit(1) DEFAULT NULL,
+                         `confirm_token` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+                         `is_enable` bit(1) DEFAULT NULL,
+                         `created_at` date DEFAULT NULL,
+                         `updated_at` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -318,6 +304,7 @@ INSERT INTO `users` (`userID`, `email`, `fullname`, `username`, `birthdate`, `ge
 (1, 'camhong41201@gmail.com', NULL, 'cmhg', NULL, b'0', NULL, '$2a$10$ZSJrWIVKH4xoBGNBKIF20uWkpTXsKvcR7nZMhXJYzIRe525tSGPLi', NULL, b'0', '349251', b'1', NULL, NULL),
 (2, 'camhongdev@gmail.com', NULL, 'tito', NULL, b'0', NULL, '$2a$10$3mqd.QRrtnWEzS/baMpSb.pggtq6tkO25bqjV18qJaJJJ90ZPFjkq', NULL, b'0', '337625', b'1', NULL, NULL),
 (3, '19130063@st.hcmuaf.edu.vn', NULL, 'hyuny', NULL, b'0', NULL, '$2a$10$3yEsbRix243ts7CltkgD5.Yxlk03zhVLUOoIq6gXNjOPkTPW8ebdO', NULL, b'0', '794103', b'1', NULL, NULL);
+
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -355,13 +342,7 @@ ALTER TABLE `bookimage`
 --
 ALTER TABLE `cart`
   ADD PRIMARY KEY (`cartID`),
-  ADD KEY `userID` (`userID`);
-
---
--- Chỉ mục cho bảng `cartitem`
---
-ALTER TABLE `cartitem`
-  ADD PRIMARY KEY (`cartID`,`bookID`),
+  ADD KEY `fk_cart_user` (`userID`),
   ADD KEY `fk_cart_book` (`bookID`);
 
 --
@@ -429,7 +410,7 @@ ALTER TABLE `bookimage`
 -- AUTO_INCREMENT cho bảng `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cartID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `cartID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT cho bảng `category`
@@ -453,7 +434,7 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
-  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+    MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
@@ -482,14 +463,8 @@ ALTER TABLE `bookimage`
 -- Các ràng buộc cho bảng `cart`
 --
 ALTER TABLE `cart`
-  ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `users` (`userID`);
-
---
--- Các ràng buộc cho bảng `cartitem`
---
-ALTER TABLE `cartitem`
-  ADD CONSTRAINT `fk_cart` FOREIGN KEY (`cartID`) REFERENCES `cart` (`cartID`),
-  ADD CONSTRAINT `fk_cart_book` FOREIGN KEY (`bookID`) REFERENCES `book` (`id`);
+  ADD CONSTRAINT `fk_cart_book` FOREIGN KEY (`bookID`) REFERENCES `book` (`id`),
+  ADD CONSTRAINT `fk_cart_user` FOREIGN KEY (`userID`) REFERENCES `users` (`userID`);
 
 --
 -- Các ràng buộc cho bảng `orderline`

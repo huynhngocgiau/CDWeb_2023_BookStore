@@ -120,9 +120,7 @@
                         <a href="/lien-he" class="nav-item nav-link content-link">Liên hệ</a>
                     </div>
                     <div class="navbar-nav ml-auto py-0" id="user-area">
-                        <a href='/gio-hang' class='nav-item nav-link' title='Giỏ hàng'><i
-                                class='fas fa-shopping-cart text-primary'></i><span class='badge'>0</span></a>
-                        <a href='/dang-nhap' class='nav-item nav-link'>Đăng nhập</a>
+
                     </div>
                 </div>
             </nav>
@@ -235,11 +233,39 @@
 <script src="lib/easing/easing.min.js" th:src="@{/web/js/easing.min.js}"></script>
 <script src="lib/owlcarousel/owl.carousel.min.js" th:src="@{/web/js/owl.carousel.min.js}"></script>
 
-<!-- Contact Javascript File -->
-<!--    <script src="mail/jqBootstrapValidation.min.js"></script>-->
-<!--    <script src="mail/contact.js"></script>-->
-
 <!-- Template Javascript -->
 <script src="js/main.js" th:src="@{/web/js/main.js}"></script>
+<script>
+    //ajax user login
+    $.ajax({
+        url: "getUser", cache: false, dataType: "json", success: function (user) {
+            var str = "";
+            str += "<a href='/gio-hang' class='nav-item nav-link' title='Giỏ hàng'><i class = 'fas fa-shopping-cart text-primary'></i></a>";
+            if (user.email != null) {
+                str += "<a href='/thong-tin-tai-khoan' class='nav-item nav-link' title='Thông tin tài khoản'> Xin chào, " + user.username + "</a>";
+                for (let i of user.roles) {
+                    if (i.name == "ROLE_ADMIN") {
+                        str += "<a href='/admin-page/book-management' class='nav-item nav-link'>Trang Admin</a>";
+                    }
+                }
+                str += "<a href='/logout' class='nav-item nav-link' title='Đăng xuất'>Thoát</a>";
+            } else {
+                str += "<a href='/dang-nhap' class='nav-item nav-link'>Đăng nhập</a>";
+            }
+            $("#user-area").html(str);
+        }
+    });
+
+    //ajax category
+    $.ajax({
+        url: "/getAllCat", type: "GET", cache: false, success: function (results) {
+            var str = "";
+            $.each(results, function (index, category) {
+                str += "<a href='/san-pham?category=" + category.code + "' class='nav-item nav-link'>" + category.name + "</a>";
+            });
+            $("#listCategory").html(str);
+        }
+    });
+</script>
 </body>
 </html>

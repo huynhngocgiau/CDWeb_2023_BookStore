@@ -74,13 +74,8 @@ public class UserController {
     }
 
     @GetMapping("/thong-tin-tai-khoan")
-    public ModelAndView information(Principal principal) {
+    public ModelAndView information() {
         ModelAndView mav = new ModelAndView("web/information.html");
-        if (principal != null) {
-            UserDTO user = this.userService.findByEmailAndIsEnable(principal.getName());
-            user.setPassword("");
-            mav.addObject("loginedUser", user);
-        }
         return mav;
     }
 
@@ -106,5 +101,3 @@ public class UserController {
         if (principal != null) return mav;
         return new ModelAndView("web/signin.html");
     }
-
-}

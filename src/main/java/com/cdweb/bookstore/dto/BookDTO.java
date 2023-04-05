@@ -127,6 +127,13 @@ public class BookDTO {
 
     }
 
+    public double getDiscount() {
+        double percent = this.discount_percent / 100;
+        double discountPrice = this.price * (1 - percent);
+        return discountPrice;
+
+    }
+
     public String formatPrice(int price) {
         DecimalFormat df = new DecimalFormat("###,###,###");
         return df.format(price) + " VNĐ";
