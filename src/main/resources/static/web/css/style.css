@@ -10375,4 +10375,11 @@ a.text-dark:hover, a.text-dark:focus {
     width: calc(100% - 30px);
     z-index: 1;
 }
-
+/*user infor*/
+#user-info{
+    width: 60%;
+    margin: 10px auto;
+}
+#link-change-pass:hover{
+    cursor: pointer;
+}

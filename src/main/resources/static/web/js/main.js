@@ -432,3 +432,29 @@ function checkRePassword() {
         }
     }
 }
+//user infor
+function checkPhone() {
+    var phoneInput = $("#phone").val();
+    if (phoneInput.length < 10 || phoneInput.length > 11) $("#phoneError").html("Số điện thoại không hợp lệ");
+    else $("#phoneError").html("");
+}
+
+function checkOldPass() {
+    var oldPhoneInput = $("#oldPass").val();
+    $.ajax({
+        url: "kiem-tra-mat-khau",
+        cache: false,
+        data: {
+            oldPassword: oldPhoneInput
+        },
+        success: function (isMatched) {
+            if (isMatched) {
+                $("#oldPassError").html("");
+                return true;
+            } else {
+                $("#oldPassError").html("Mật khẩu cũ không chính xác");
+                return false;
+            }
+        }
+    });
+}

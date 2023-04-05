@@ -36,8 +36,7 @@ public class UserController {
     }
 
     @PostMapping("/confirm-account")
-    public ModelAndView confirmAccount(@RequestParam(name = "confirmCode") String code,
-                                       @RequestParam(name = "userId") int id) {
+    public ModelAndView confirmAccount(@RequestParam(name = "confirmCode") String code, @RequestParam(name = "userId") int id) {
         ModelAndView mav = null;
         //request sẽ gồm code người dùng nhập vào và id dc gửi qua
         //lấy code đó so sánh với code được lấy ra từ user tìm dc theo id
@@ -73,4 +72,39 @@ public class UserController {
             return new UserDTO();
         }
     }
+
+    @GetMapping("/thong-tin-tai-khoan")
+    public ModelAndView information(Principal principal) {
+        ModelAndView mav = new ModelAndView("web/information.html");
+        if (principal != null) {
+            UserDTO user = this.userService.findByEmailAndIsEnable(principal.getName());
+            user.setPassword("");
+            mav.addObject("loginedUser", user);
+        }
+        return mav;
+    }
+
+    @PostMapping("/cap-nhat-thong-tin")
+    public ModelAndView changeInformation(@ModelAttribute(name = "user") UserDTO user, Principal principal) {
+        ModelAndView mav = new ModelAndView("web/information.html");
+        userService.changeInformation(user);
+        mav.addObject("message", "Cập nhật thông tin thành công");
+        if (principal != null) return mav;
+        return new ModelAndView("web/signin.html");
+    }
+
+    @GetMapping("/kiem-tra-mat-khau")
+    public boolean checkPass(@RequestParam(name = "oldPassword") String oldPass, Principal principal) {
+        return userService.checkPass(principal.getName(), oldPass);
+    }
+
+    @PostMapping("/doi-mat-khau")
+    public ModelAndView changePassword(@RequestParam(name = "password") String newPass, Principal principal) {
+        ModelAndView mav = new ModelAndView("web/information.html");
+        userService.changePassword(newPass, principal.getName());
+        mav.addObject("message", "Cập nhật mật khẩu thành công.");
+        if (principal != null) return mav;
+        return new ModelAndView("web/signin.html");
+    }
+
 }
