@@ -36,25 +36,16 @@
 
     // Vendor carousel
     $('.vendor-carousel').owlCarousel({
-        loop: true,
-        margin: 29,
-        nav: false,
-        autoplay: true,
-        smartSpeed: 1000,
-        responsive: {
+        loop: true, margin: 29, nav: false, autoplay: true, smartSpeed: 1000, responsive: {
             0: {
                 items: 2
-            },
-            576: {
+            }, 576: {
                 items: 3
-            },
-            768: {
+            }, 768: {
                 items: 4
-            },
-            992: {
+            }, 992: {
                 items: 5
-            },
-            1200: {
+            }, 1200: {
                 items: 6
             }
         }
@@ -63,64 +54,21 @@
 
     // Related carousel
     $('.related-carousel').owlCarousel({
-        loop: true,
-        margin: 29,
-        nav: false,
-        autoplay: true,
-        smartSpeed: 1000,
-        responsive: {
+        loop: true, margin: 29, nav: false, autoplay: true, smartSpeed: 1000, responsive: {
             0: {
                 items: 1
-            },
-            576: {
+            }, 576: {
                 items: 2
-            },
-            768: {
+            }, 768: {
                 items: 3
-            },
-            992: {
+            }, 992: {
                 items: 4
             }
         }
     });
 
-
-<<<<<<< Updated upstream
-    // Product Quantity
-    $('.quantity button').on('click', function () {
-        var button = $(this);
-        var oldValue = button.parent().parent().find('input').val();
-        if (button.hasClass('btn-plus')) {
-            var newVal = parseFloat(oldValue) + 1;
-        } else {
-            if (oldValue > 0) {
-                var newVal = parseFloat(oldValue) - 1;
-            } else {
-                newVal = 0;
-            }
-        }
-        button.parent().parent().find('input').val(newVal);
-    });
-
-    //ajax category
-    $.ajax({
-        url: "/getAllCat",
-        type: "GET",
-        cache: false,
-        success: function (results) {
-            var str = "";
-            $.each(results, function (index, category) {
-                str += "<a href='/san-pham?category=" + category.code + "' class='nav-item nav-link'>" + category.name + "</a>";
-            });
-            $("#listCategory").html(str);
-        }
-    });
-
-=======
->>>>>>> Stashed changes
     //show category list on index page
-    if (window.location.pathname == "/") $("#navbar-vertical").addClass("show");
-    else $("#navbar-vertical").removeClass("show");
+    if (window.location.pathname == "/") $("#navbar-vertical").addClass("show"); else $("#navbar-vertical").removeClass("show");
 
     //category position absolute in another page except index
     if (window.location.pathname == "/" || window.location.pathname == "/trang-chu") {
@@ -147,6 +95,26 @@
         $(".content-link").removeClass("active");
         $(this).addClass("active");
     })
+
+    //ajax user login
+    $.ajax({
+        url: "getUser", cache: false, dataType: "json", success: function (user) {
+            var str = "";
+            str += "<a href='/gio-hang' class='nav-item nav-link' title='Giỏ hàng'><i class = 'fas fa-shopping-cart text-primary' ></i><span class='badge'>0</span></a>";
+            if (user.email != null) {
+                str += "<a href='/thong-tin-tai-khoan' class='nav-item nav-link' title='Thông tin tài khoản'> Xin chào, " + user.username + "</a>";
+                for (let i of user.roles) {
+                    if (i.name == "ROLE_ADMIN") {
+                        str += "<a href='/admin-page/book-management' class='nav-item nav-link'>Trang Admin</a>";
+                    }
+                }
+                str += "<a href='/logout' class='nav-item nav-link' title='Đăng xuất'>Thoát</a>";
+            } else {
+                str += "<a href='/dang-nhap' class='nav-item nav-link'>Đăng nhập</a>";
+            }
+            $("#user-area").html(str);
+        }
+    });
 
 })(jQuery);
 
@@ -289,10 +257,7 @@ function sort() {
     }
     var query = searchValue + sort;
     $.ajax({
-        url: 'danh-sach-san-pham' + query,
-        cache: false,
-        dataType: "json",
-        success: function (result) {
+        url: 'danh-sach-san-pham' + query, cache: false, dataType: "json", success: function (result) {
             show(result)
         }
     });
@@ -301,10 +266,7 @@ function sort() {
 function searchTitle() {
     var searchValue = $("#search").val();
     $.ajax({
-        url: "danh-sach-san-pham?title=" + searchValue,
-        cache: false,
-        dataType: "json",
-        success: function (result) {
+        url: "danh-sach-san-pham?title=" + searchValue, cache: false, dataType: "json", success: function (result) {
             show(result)
         }
     });
@@ -322,10 +284,7 @@ function filterByPrice() {
     }
     var query = searchValue + filter;
     $.ajax({
-        url: "danh-sach-san-pham" + query,
-        cache: false,
-        dataType: "json",
-        success: function (result) {
+        url: "danh-sach-san-pham" + query, cache: false, dataType: "json", success: function (result) {
             show(result)
         }
     });
@@ -337,28 +296,20 @@ function checkEmail() {
     if (emailInput.length == 0) {
         $("#emailError").html("Vui lòng không bỏ trống email");
         $("#emailError").css({
-            display: "block",
-            color: "red",
-            fontSize: 12
+            display: "block", color: "red", fontSize: 12
         });
         return false;
     } else {
         var mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
         if (emailInput.match(mailformat)) {
             $.ajax({
-                method: 'GET',
-                url: 'check-mail',
-                cache: 'false',
-                data: {
+                method: 'GET', url: 'check-mail', cache: 'false', data: {
                     email: emailInput
-                },
-                success: function (result) {
+                }, success: function (result) {
                     if (result == emailInput) {
                         $("#emailError").html("Email đã tồn tại. Vui lòng thử lại email khác");
                         $("#emailError").css({
-                            display: "block",
-                            color: "red",
-                            fontSize: 12
+                            display: "block", color: "red", fontSize: 12
                         });
                     } else {
                         $("#emailError").html("");
@@ -376,9 +327,7 @@ function checkEmail() {
         } else {
             $("#emailError").html("Email không hợp lệ");
             $("#emailError").css({
-                display: "block",
-                color: "red",
-                fontSize: 12
+                display: "block", color: "red", fontSize: 12
             });
             return false;
         }
@@ -390,9 +339,7 @@ function checkUsername() {
     if (userInput.length == 0) {
         $("#userError").html("Vui lòng không bỏ trống tên người dùng");
         $("#userError").css({
-            display: "block",
-            color: "red",
-            fontSize: 12
+            display: "block", color: "red", fontSize: 12
         });
         return false;
     } else {
@@ -410,9 +357,7 @@ function checkPass() {
         $("#passError").html("Vui lòng nhập mật khẩu từ 8 ký tự trở lên");
         $("#passLoginError").html("Vui lòng nhập mật khẩu từ 8 ký tự trở lên");
         $("#passError").css({
-            display: "block",
-            color: "red",
-            fontSize: 12
+            display: "block", color: "red", fontSize: 12
         });
         return false;
     } else {
@@ -431,18 +376,14 @@ function checkRePassword() {
     if (rePassInput.length == 0) {
         $("#rePassError").html("Vui lòng nhập lại mật khẩu");
         $("#rePassError").css({
-            display: "block",
-            color: "red",
-            fontSize: 12
+            display: "block", color: "red", fontSize: 12
         });
         return false;
     } else {
         if (rePassInput != passInput) {
             $("#rePassError").html("Mật khẩu không khớp");
             $("#rePassError").css({
-                display: "block",
-                color: "red",
-                fontSize: 12
+                display: "block", color: "red", fontSize: 12
             });
             return false;
         } else {
@@ -453,8 +394,6 @@ function checkRePassword() {
             return true;
         }
     }
-<<<<<<< Updated upstream
-=======
 }
 
 //user infor
@@ -507,5 +446,4 @@ function addToCart(bookId, quantity) {
 function formatPrice(price) {
     price = price.toLocaleString('it-IT', {style: 'currency', currency: 'VND'});
     return price;
->>>>>>> Stashed changes
 }

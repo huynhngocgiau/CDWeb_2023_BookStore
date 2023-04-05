@@ -36,8 +36,7 @@ public class UserController {
     }
 
     @PostMapping("/confirm-account")
-    public ModelAndView confirmAccount(@RequestParam(name = "confirmCode") String code,
-                                       @RequestParam(name = "userId") int id) {
+    public ModelAndView confirmAccount(@RequestParam(name = "confirmCode") String code, @RequestParam(name = "userId") int id) {
         ModelAndView mav = null;
         //request sẽ gồm code người dùng nhập vào và id dc gửi qua
         //lấy code đó so sánh với code được lấy ra từ user tìm dc theo id
@@ -63,8 +62,6 @@ public class UserController {
         return mav;
     }
 
-<<<<<<< Updated upstream
-=======
     @GetMapping("/getUser")
     public UserDTO getUser(Principal principal) {
         if (principal != null) {
@@ -104,6 +101,3 @@ public class UserController {
         if (principal != null) return mav;
         return new ModelAndView("web/signin.html");
     }
-
->>>>>>> Stashed changes
-}

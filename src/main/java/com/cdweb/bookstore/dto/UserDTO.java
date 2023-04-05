@@ -2,7 +2,7 @@ package com.cdweb.bookstore.dto;
 
 import org.springframework.stereotype.Component;
 
-import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +12,7 @@ public class UserDTO {
     private String email;
     private String fullname;
     private String username;
-    private Timestamp birthdate;
+    private LocalDate birthdate;
     private boolean gender;
     private String phone;
     private String password;
@@ -20,8 +20,8 @@ public class UserDTO {
     private String avatarPath;
     private boolean status;
     private boolean isEnable;
-    private Timestamp createdAt;
-    private Timestamp updatedAt;
+    private LocalDate createdAt;
+    private LocalDate updatedAt;
     private List<RoleDTO> roles = new ArrayList<>();
 
     public int getUserID() {
@@ -56,27 +56,27 @@ public class UserDTO {
         this.username = username;
     }
 
-    public Timestamp getCreatedAt() {
+    public LocalDate getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
+    public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Timestamp getUpdatedAt() {
+    public LocalDate getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Timestamp updatedAt) {
+    public void setUpdatedAt(LocalDate updatedAt) {
         this.updatedAt = updatedAt;
     }
 
-    public Timestamp getBirthdate() {
+    public LocalDate getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(Timestamp birthdate) {
+    public void setBirthdate(LocalDate birthdate) {
         this.birthdate = birthdate;
     }
 

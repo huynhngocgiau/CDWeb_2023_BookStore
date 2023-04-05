@@ -4,12 +4,6 @@ import com.cdweb.bookstore.entities.CategoryEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-
-<<<<<<< Updated upstream
-import java.sql.Date;
-import java.sql.Timestamp;
-=======
->>>>>>> Stashed changes
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;

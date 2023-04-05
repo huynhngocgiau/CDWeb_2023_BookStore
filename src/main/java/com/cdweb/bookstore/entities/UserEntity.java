@@ -2,7 +2,7 @@ package com.cdweb.bookstore.entities;
 
 import jakarta.persistence.*;
 
-import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +17,7 @@ public class UserEntity {
     private String fullname;
     @Column(name = "username")
     private String username;
-    private Timestamp birthdate;
+    private LocalDate birthdate;
     private boolean gender;
     private String phone;
     private String password;
@@ -29,9 +29,9 @@ public class UserEntity {
     @Column(name = "is_enable")
     private boolean isEnable;
     @Column(name = "created_at")
-    private Timestamp createdAt;
+    private LocalDate createdAt;
     @Column(name = "updated_at")
-    private Timestamp updatedAt;
+    private LocalDate updatedAt;
     @ManyToMany
     @JoinTable(name = "roleuser",
             //joinColumns thì chỉ tới class hiện tai, là khóa ngoại 1
@@ -72,27 +72,27 @@ public class UserEntity {
         this.username = username;
     }
 
-    public Timestamp getCreatedAt() {
+    public LocalDate getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
+    public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Timestamp getUpdatedAt() {
+    public LocalDate getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Timestamp updatedAt) {
+    public void setUpdatedAt(LocalDate updatedAt) {
         this.updatedAt = updatedAt;
     }
 
-    public Timestamp getBirthdate() {
+    public LocalDate getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(Timestamp birthdate) {
+    public void setBirthdate(LocalDate birthdate) {
         this.birthdate = birthdate;
     }
 

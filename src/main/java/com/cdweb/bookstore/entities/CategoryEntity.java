@@ -2,7 +2,7 @@ package com.cdweb.bookstore.entities;
 
 import jakarta.persistence.*;
 
-import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,9 +16,9 @@ public class CategoryEntity {
     @Column(name = "name", length = 50)
     private String name;
    @Column(name = "created_at")
-    private Timestamp created_at;
+    private LocalDate created_at;
     @Column(name = "updated_at")
-    private Timestamp updated_at;
+    private LocalDate updated_at;
     @OneToMany(mappedBy = "category")
     private List<BookEntity> books = new ArrayList<>();
 
@@ -46,19 +46,19 @@ public class CategoryEntity {
         this.name = name;
     }
 
-    public Timestamp getCreated_at() {
+    public LocalDate getCreated_at() {
         return created_at;
     }
 
-    public void setCreated_at(Timestamp created_at) {
+    public void setCreated_at(LocalDate created_at) {
         this.created_at = created_at;
     }
 
-    public Timestamp getUpdated_at() {
+    public LocalDate getUpdated_at() {
         return updated_at;
     }
 
-    public void setUpdated_at(Timestamp updated_at) {
+    public void setUpdated_at(LocalDate updated_at) {
         this.updated_at = updated_at;
     }
 }
