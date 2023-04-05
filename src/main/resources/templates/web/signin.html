@@ -294,6 +294,17 @@
     function checkValidateForm() {
         return checkEmail() && checkUsername() && checkPass() && checkRePassword();
     }
+
+    $(function () {
+        //sign in
+        $("#signUp").click(function () {
+            $("#container").addClass("right-panel-active");
+        });
+
+        $("#signIn").click(function () {
+            $("#container").removeClass("right-panel-active")
+        });
+    })
 </script>
 </body>
 </html>

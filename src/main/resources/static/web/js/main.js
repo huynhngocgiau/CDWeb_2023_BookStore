@@ -1,15 +1,6 @@
 (function ($) {
     "use strict";
 
-    //sign in
-    $("#signUp").click(function () {
-        $("#container").addClass("right-panel-active");
-    });
-
-    $("#signIn").click(function () {
-        $("#container").removeClass("right-panel-active")
-    });
-
     // Dropdown on mouse hover
     $(document).ready(function () {
         function toggleNavbarMethod() {
@@ -94,6 +85,7 @@
     });
 
 
+<<<<<<< Updated upstream
     // Product Quantity
     $('.quantity button').on('click', function () {
         var button = $(this);
@@ -124,6 +116,8 @@
         }
     });
 
+=======
+>>>>>>> Stashed changes
     //show category list on index page
     if (window.location.pathname == "/") $("#navbar-vertical").addClass("show");
     else $("#navbar-vertical").removeClass("show");
@@ -202,7 +196,7 @@ function showBook(listBook) {
         //button chi tiet
         str += " <div class='card-footer d-flex justify-content-between bg-light border'>";
         str += "<a href='/chi-tiet?id=" + book.id + "' class='btn btn-sm text-dark p-0'><i class='fas fa-eye text-primary mr-1'></i>Chi tiết</a>";
-        str += " <a href='' class='btn btn-sm text-dark p-0'><i class='fas fa-shopping-cart text-primary mr-1'></i>Giỏ hàng</a>";
+        str += " <a onclick='addToCart(" + book.id + "," + 1 + ")' class='btn btn-sm text-dark p-0'><i class='fas fa-shopping-cart text-primary mr-1'></i>Giỏ hàng</a>";
         str += "</div>";
         str += "</div>";
         str += "</div>";
@@ -459,4 +453,59 @@ function checkRePassword() {
             return true;
         }
     }
+<<<<<<< Updated upstream
+=======
+}
+
+//user infor
+function checkPhone() {
+    var phoneInput = $("#phone").val();
+    var regexPersonal = /(03|05|07|08|09)+([0-9]{8})\b/;
+    if (!phoneInput.match(regexPersonal) || phoneInput.length < 10 || phoneInput.length > 11) $("#phoneError").html("Số điện thoại không hợp lệ");
+    else $("#phoneError").html("");
+}
+
+function checkOldPass() {
+    var oldPhoneInput = $("#oldPass").val();
+    $.ajax({
+        url: "kiem-tra-mat-khau",
+        cache: false,
+        data: {
+            oldPassword: oldPhoneInput
+        },
+        success: function (isMatched) {
+            if (isMatched) {
+                $("#oldPassError").html("");
+                return true;
+            } else {
+                $("#oldPassError").html("Mật khẩu cũ không chính xác");
+                return false;
+            }
+        }
+    });
+}
+
+//show alert add to cart success
+function addToCart(bookId, quantity) {
+    $.ajax({
+        method: "get",
+        url: "them-san-pham",
+        cache: false,
+        data: {
+            bookID: bookId,
+            quantity: quantity
+        },
+        dataType:"json",
+        success: function (result) {
+            if (result.user == null) {
+                window.location.href="/dang-nhap"
+            } else alert("Thêm sản phẩm vào giỏ hàng thành công");
+        }
+    })
+}
+
+function formatPrice(price) {
+    price = price.toLocaleString('it-IT', {style: 'currency', currency: 'VND'});
+    return price;
+>>>>>>> Stashed changes
 }

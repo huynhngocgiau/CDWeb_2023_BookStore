@@ -3,7 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
+<<<<<<< Updated upstream
 -- Thời gian đã tạo: Th3 21, 2023 lúc 05:58 AM
+=======
+-- Thời gian đã tạo: Th4 05, 2023 lúc 05:23 PM
+>>>>>>> Stashed changes
 -- Phiên bản máy phục vụ: 10.4.24-MariaDB
 -- Phiên bản PHP: 8.0.19
 
@@ -30,8 +34,13 @@ SET time_zone = "+00:00";
 CREATE TABLE `author` (
                           `authorID` int(11) NOT NULL,
                           `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+<<<<<<< Updated upstream
                           `created_at` datetime DEFAULT NULL,
                           `updated_at` datetime DEFAULT NULL
+=======
+                          `created_at` date DEFAULT NULL,
+                          `updated_at` date DEFAULT NULL
+>>>>>>> Stashed changes
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -71,8 +80,13 @@ CREATE TABLE `book` (
                         `description` text COLLATE utf8_unicode_ci NOT NULL,
                         `price` int(11) NOT NULL,
                         `quantity_sold` int(11) NOT NULL,
+<<<<<<< Updated upstream
                         `created_at` datetime DEFAULT NULL,
                         `updated_at` datetime DEFAULT NULL,
+=======
+                        `created_at` date DEFAULT NULL,
+                        `updated_at` date DEFAULT NULL,
+>>>>>>> Stashed changes
                         `active` bit(1) NOT NULL,
                         `hot` bit(1) NOT NULL,
                         `news` bit(1) NOT NULL,
@@ -84,7 +98,11 @@ CREATE TABLE `book` (
 --
 
 INSERT INTO `book` (`id`, `title`, `year_public`, `total_page`, `categoryID`, `publisher`, `description`, `price`, `quantity_sold`, `created_at`, `updated_at`, `active`, `hot`, `news`, `discount_percent`) VALUES
+<<<<<<< Updated upstream
                                                                                                                                                                                                                  (1, 'Đôremon đi tìm miền đất hứa', 2006, 106, 1, 'Nhà xuất bản Kim Đồng', 'Chuyến phiêu lưu khám phá miền đất hứa đầy thú vị và vui tươi của Doremon và những người bạn.', 15000, 159, '2023-02-17 09:41:44', NULL, b'1', b'0', b'0', 15),
+=======
+                                                                                                                                                                                                                 (1, 'Đôremon đi tìm miền đất hứa', 2006, 106, 1, 'Nhà xuất bản Kim Đồng', 'Chuyến phiêu lưu khám phá miền đất hứa đầy thú vị và vui tươi của Doremon và những người bạn.', 15000, 159, '2023-02-17', NULL, b'1', b'0', b'0', 15),
+>>>>>>> Stashed changes
                                                                                                                                                                                                                  (2, 'English Vocabulary in Use: Pre-Intermediate and Intermediate Book with Answers: Vocabulary Reference and Practice (Kèm CD)', 2013, 264, 4, 'CAMBRIDGE UNIVERSITY', 'Vocabulary explanations and practice for pre-intermediate level (B1) learners of English. Perfect for both self-study and classroom activities. Quickly expand your vocabulary with over 100 units of easy to understand explanations and practice exercises. Be confident about what you are learning, thanks to Cambridge research into how English is really spoken and written, and get better at studying by yourself, with units on learning vocabulary, personalised practice and an easy to use answer key.\r\nGiá sản phẩm trên Tiki đã bao gồm thuế theo luật hiện hành. Bên cạnh đó, tuỳ vào loại sản phẩm, hình thức và địa chỉ giao hàng mà có thể phát sinh thêm chi phí khác như phí vận chuyển, phụ phí hàng cồng kềnh, thuế nhập khẩu (đối với đơn hàng giao từ nước ngoài có giá trị trên 1 triệu đồng).....', 193000, 50, NULL, NULL, b'1', b'0', b'0', 10),
                                                                                                                                                                                                                  (3, 'Conan Thám tử lừng danh - Khúc nhạc cầu siêu', 2009, 105, 1, 'Nhà xuất bản Kim Đồng', 'Theo chân cuộc hành trình của cậu bé thám tử trong cơ thể bị thu nhỏ - Conan, khám phá những vụ án bí ẩn.', 25000, 50, NULL, NULL, b'1', b'1', b'1', 5),
                                                                                                                                                                                                                  (4, 'Truyện tranh Conan tuyển tập đặc biệt - Conan vs tổ chức áo đen', 2017, 200, 1, 'Kim Đồng', '', 36000, 125, NULL, NULL, b'1', b'1', b'0', 20),
@@ -169,6 +187,7 @@ INSERT INTO `bookimage` (`imageID`, `path`, `bookID`) VALUES
 
 CREATE TABLE `cart` (
                         `cartID` int(11) NOT NULL,
+<<<<<<< Updated upstream
                         `userID` int(11) NOT NULL,
                         `quantity` int(11) NOT NULL,
                         `totalMoney` int(11) NOT NULL
@@ -185,6 +204,11 @@ CREATE TABLE `cartitem` (
                             `bookID` int(11) NOT NULL,
                             `quantity` int(11) NOT NULL,
                             `price` int(11) NOT NULL
+=======
+                        `quantity` int(11) DEFAULT NULL,
+                        `userID` int(11) DEFAULT NULL,
+                        `bookID` int(11) DEFAULT NULL
+>>>>>>> Stashed changes
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -197,8 +221,13 @@ CREATE TABLE `category` (
                             `categoryID` int(11) NOT NULL,
                             `code` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
                             `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+<<<<<<< Updated upstream
                             `created_at` datetime DEFAULT NULL,
                             `updated_at` datetime DEFAULT NULL
+=======
+                            `created_at` date DEFAULT NULL,
+                            `updated_at` date DEFAULT NULL
+>>>>>>> Stashed changes
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -206,14 +235,22 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`categoryID`, `code`, `name`, `created_at`, `updated_at`) VALUES
+<<<<<<< Updated upstream
                                                                                       (1, 'truyen-tranh', 'Truyện tranh', '2023-02-17 09:37:05', NULL),
+=======
+                                                                                      (1, 'truyen-tranh', 'Truyện tranh', '2023-02-17', NULL),
+>>>>>>> Stashed changes
                                                                                       (2, 'chinh-tri', 'Chính trị - Pháp lý', NULL, NULL),
                                                                                       (3, 'giao-khoa', 'Giáo khoa - Giáo trình', NULL, NULL),
                                                                                       (4, 'tieng-anh', 'Tiếng Anh', NULL, NULL),
                                                                                       (5, 'tam-ly', 'Tâm lý - Giới tính', NULL, NULL),
                                                                                       (6, 'lich-su', 'Lịch sử', NULL, NULL),
                                                                                       (7, 'khoa-hoc', 'Khoa học - Kỹ thuật', NULL, NULL),
+<<<<<<< Updated upstream
                                                                                       (8, 'tre-em', 'Trẻ em', '2023-03-02 19:22:24', NULL),
+=======
+                                                                                      (8, 'tre-em', 'Trẻ em', '2023-03-02', NULL),
+>>>>>>> Stashed changes
                                                                                       (9, 'kinh-doanh', 'Kinh doanh', NULL, NULL),
                                                                                       (10, 'van-hoc', 'Văn học', NULL, NULL);
 
@@ -242,8 +279,13 @@ CREATE TABLE `orders` (
                           `totalMoney` int(11) NOT NULL,
                           `quatity` int(11) NOT NULL,
                           `note` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,
+<<<<<<< Updated upstream
                           `created_at` datetime DEFAULT NULL,
                           `updated_at` datetime DEFAULT NULL
+=======
+                          `created_at` date DEFAULT NULL,
+                          `updated_at` date DEFAULT NULL
+>>>>>>> Stashed changes
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -281,6 +323,10 @@ CREATE TABLE `roleuser` (
 --
 
 INSERT INTO `roleuser` (`userID`, `roleID`) VALUES
+<<<<<<< Updated upstream
+=======
+                                                (3, 2),
+>>>>>>> Stashed changes
                                                 (1, 1),
                                                 (2, 2);
 
@@ -295,7 +341,11 @@ CREATE TABLE `users` (
                          `email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
                          `fullname` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
                          `username` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+<<<<<<< Updated upstream
                          `birthdate` datetime DEFAULT NULL,
+=======
+                         `birthdate` date DEFAULT NULL,
+>>>>>>> Stashed changes
                          `gender` bit(1) DEFAULT NULL,
                          `phone` varchar(12) COLLATE utf8_unicode_ci DEFAULT NULL,
                          `password` varchar(70) COLLATE utf8_unicode_ci NOT NULL,
@@ -303,8 +353,13 @@ CREATE TABLE `users` (
                          `status` bit(1) DEFAULT NULL,
                          `confirm_token` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
                          `is_enable` bit(1) DEFAULT NULL,
+<<<<<<< Updated upstream
                          `created_at` datetime DEFAULT NULL,
                          `updated_at` datetime DEFAULT NULL
+=======
+                         `created_at` date DEFAULT NULL,
+                         `updated_at` date DEFAULT NULL
+>>>>>>> Stashed changes
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -313,7 +368,12 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`userID`, `email`, `fullname`, `username`, `birthdate`, `gender`, `phone`, `password`, `avatar_path`, `status`, `confirm_token`, `is_enable`, `created_at`, `updated_at`) VALUES
                                                                                                                                                                                                    (1, 'camhong41201@gmail.com', NULL, 'cmhg', NULL, b'0', NULL, '$2a$10$ZSJrWIVKH4xoBGNBKIF20uWkpTXsKvcR7nZMhXJYzIRe525tSGPLi', NULL, b'0', '349251', b'1', NULL, NULL),
+<<<<<<< Updated upstream
                                                                                                                                                                                                    (2, 'camhongdev@gmail.com', NULL, 'tito', NULL, b'0', NULL, '$2a$10$3mqd.QRrtnWEzS/baMpSb.pggtq6tkO25bqjV18qJaJJJ90ZPFjkq', NULL, b'0', '337625', b'1', NULL, NULL);
+=======
+                                                                                                                                                                                                   (2, 'camhongdev@gmail.com', 'Nguyễn Tí Tò', 'tito', '2004-06-05', b'0', '0312312319', '$2a$10$3mqd.QRrtnWEzS/baMpSb.pggtq6tkO25bqjV18qJaJJJ90ZPFjkq', NULL, b'0', '337625', b'1', NULL, '2023-04-05'),
+                                                                                                                                                                                                   (3, '19130063@st.hcmuaf.edu.vn', NULL, 'hyuny', NULL, b'0', NULL, '$2a$12$Dvd8rJCJcLjq1hLmTmlD7uCa.3gEnPxEe0FhvyR8GMcXrLQZqsYeu', NULL, b'0', '794103', b'1', NULL, NULL);
+>>>>>>> Stashed changes
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -351,6 +411,7 @@ ALTER TABLE `bookimage`
 --
 ALTER TABLE `cart`
     ADD PRIMARY KEY (`cartID`),
+<<<<<<< Updated upstream
   ADD KEY `userID` (`userID`);
 
 --
@@ -358,6 +419,9 @@ ALTER TABLE `cart`
 --
 ALTER TABLE `cartitem`
     ADD PRIMARY KEY (`cartID`,`bookID`),
+=======
+  ADD KEY `fk_cart_user` (`userID`),
+>>>>>>> Stashed changes
   ADD KEY `fk_cart_book` (`bookID`);
 
 --
@@ -425,7 +489,11 @@ ALTER TABLE `bookimage`
 -- AUTO_INCREMENT cho bảng `cart`
 --
 ALTER TABLE `cart`
+<<<<<<< Updated upstream
     MODIFY `cartID` int(11) NOT NULL AUTO_INCREMENT;
+=======
+    MODIFY `cartID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+>>>>>>> Stashed changes
 
 --
 -- AUTO_INCREMENT cho bảng `category`
@@ -449,7 +517,11 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
+<<<<<<< Updated upstream
     MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+=======
+    MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+>>>>>>> Stashed changes
 
 --
 -- Các ràng buộc cho các bảng đã đổ
@@ -478,6 +550,7 @@ ALTER TABLE `bookimage`
 -- Các ràng buộc cho bảng `cart`
 --
 ALTER TABLE `cart`
+<<<<<<< Updated upstream
     ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `users` (`userID`);
 
 --
@@ -486,6 +559,10 @@ ALTER TABLE `cart`
 ALTER TABLE `cartitem`
     ADD CONSTRAINT `fk_cart` FOREIGN KEY (`cartID`) REFERENCES `cart` (`cartID`),
   ADD CONSTRAINT `fk_cart_book` FOREIGN KEY (`bookID`) REFERENCES `book` (`id`);
+=======
+    ADD CONSTRAINT `fk_cart_book` FOREIGN KEY (`bookID`) REFERENCES `book` (`id`),
+  ADD CONSTRAINT `fk_cart_user` FOREIGN KEY (`userID`) REFERENCES `users` (`userID`);
+>>>>>>> Stashed changes
 
 --
 -- Các ràng buộc cho bảng `orderline`

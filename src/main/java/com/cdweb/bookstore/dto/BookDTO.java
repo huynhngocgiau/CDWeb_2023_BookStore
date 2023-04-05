@@ -5,8 +5,11 @@ import jakarta.persistence.Column;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
+<<<<<<< Updated upstream
 import java.sql.Date;
 import java.sql.Timestamp;
+=======
+>>>>>>> Stashed changes
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -127,6 +130,13 @@ public class BookDTO {
         double discountPrice = this.price * (1 - percent);
         DecimalFormat df = new DecimalFormat("###,###,###");
         return df.format(discountPrice) + " VNĐ";
+
+    }
+
+    public double getDiscount() {
+        double percent = this.discount_percent / 100;
+        double discountPrice = this.price * (1 - percent);
+        return discountPrice;
 
     }
 
