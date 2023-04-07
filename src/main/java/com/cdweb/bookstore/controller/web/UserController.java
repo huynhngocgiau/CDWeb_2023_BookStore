@@ -101,3 +101,4 @@ public class UserController {
         if (principal != null) return mav;
         return new ModelAndView("web/signin.html");
     }
+}
