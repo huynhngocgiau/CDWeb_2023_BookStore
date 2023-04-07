@@ -56,23 +56,14 @@
                 <div class="card-header bg-secondary border-0">
                     <h4 class="font-weight-semi-bold m-0">Tổng thanh toán</h4>
                 </div>
-                <div class="card-body">
-                    <div class="d-flex justify-content-between mb-3 pt-1">
-                        <h6 class="font-weight-medium">Subtotal</h6>
-                        <h6 class="font-weight-medium" id="subTotal"></h6>
-                        <input type="hidden" id="subTotalInput">
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <h6 class="font-weight-medium">Phí vận chuyển</h6>
-                        <h6 class="font-weight-medium">15.000 VND</h6>
-                    </div>
-                </div>
                 <div class="card-footer border-secondary bg-transparent">
                     <div class="d-flex justify-content-between mt-2">
                         <h5 class="font-weight-bold">Tổng cộng</h5>
-                        <h5 class="font-weight-bold" id="total"></h5>
+                        <h5 class="font-weight-bold" id="subTotal"></h5>
+                        <input type="hidden" id="subTotalInput">
                     </div>
                     <button class="btn btn-block btn-primary my-3 py-3">Thanh toán</button>
+                    <a href="/san-pham" class="text-center">Tiếp tục mua hàng</a>
                 </div>
             </div>
         </div>
@@ -137,7 +128,6 @@
             str += "</tr>";
         }
         $("#showCartItem").html(str);
-        $("#total").html(formatPrice(result.totalMoney));
         $("#subTotal").html(formatPrice(result.total));
         //gan gia tri input ẩn để lát lấy value tính toán
         $("#subTotalInput").val(result.total);
@@ -154,7 +144,6 @@
             getTotal = getTotal - cartItemValue;
         }
         var sum = getTotal + 15000;
-        $("#total").html(formatPrice(sum));
         $("#subTotal").html(formatPrice(getTotal));
         //hiển thị gt xong thì set lại gt cho input ẩn
         $("#subTotalInput").val(getTotal);
@@ -208,7 +197,6 @@
                     }
                 }
                 //change totalMoney
-                $("#total").html(formatPrice(result.totalMoney));
                 $("#subTotal").html(formatPrice(result.total));
                 $("#subTotalInput").val(result.total);
                 //khi tăng quantity thì check box của book tương ứng sẽ được check

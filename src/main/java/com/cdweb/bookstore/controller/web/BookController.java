@@ -88,11 +88,14 @@ public class BookController {
 
     //chuyen huong qua trang chi tiet
     @GetMapping("/chi-tiet")
-    public ModelAndView detal(@RequestParam(name = "id") Integer id) {
+    public ModelAndView detail(@RequestParam(name = "id") Integer id) {
         ModelAndView mav = new ModelAndView("web/detail.html");
-        BookDTO bookById = bookService.findById(id);
-        mav.addObject("list", bookService.findByCategoryIdAnQuantityGreaterThan(bookById.getCategory().getCategoryId(), 50));
         return mav;
+    }
+
+    @GetMapping("/getDetailBook")
+    public BookDTO getDetail(@RequestParam(name = "id") int id) {
+        return bookService.findById(id);
     }
 
     @GetMapping("/hot-book")
