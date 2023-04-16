@@ -15,4 +15,8 @@ public interface ICartService {
     public List<CartDTO> deleteBook(String email, int bookId);
 
     public List<CartDTO> updateQuantity(String email, int bookId, int quantity);
+
+    public CartDTO getById(int id);
+
+    public void deleteCart(CartDTO cart);
 }

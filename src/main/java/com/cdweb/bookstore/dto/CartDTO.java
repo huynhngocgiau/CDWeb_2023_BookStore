@@ -1,5 +1,8 @@
 package com.cdweb.bookstore.dto;
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+
 public class CartDTO {
     private int cartID;
     private int quantity;
@@ -42,4 +45,8 @@ public class CartDTO {
         return this.quantity * book.getPrice() * (1 - book.getDiscount_percent() / 100);
     }
 
+    public String getTotalFormat() {
+        DecimalFormat df = new DecimalFormat("###,###,###");
+        return df.format(getTotalAmount()) + "VND";
+    }
 }

@@ -78,4 +78,14 @@ public class CartServiceImp implements ICartService {
         cartRepo.save(cartDb);
         return getBooks(email);
     }
+
+    @Override
+    public CartDTO getById(int id) {
+        return cartConverter.toDTO(cartRepo.getByCartID(id));
+    }
+
+    @Override
+    public void deleteCart(CartDTO cart) {
+        cartRepo.delete(cartConverter.toEntity(cart));
+    }
 }

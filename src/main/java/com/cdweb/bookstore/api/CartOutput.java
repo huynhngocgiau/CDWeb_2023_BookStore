@@ -2,6 +2,7 @@ package com.cdweb.bookstore.api;
 
 import com.cdweb.bookstore.dto.CartDTO;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,5 +29,15 @@ public class CartOutput {
     public double getTotalMoney() {
         //15k ship
         return total + 15000;
+    }
+
+    public String getFormat() {
+        DecimalFormat df = new DecimalFormat("###,###,###");
+        return df.format(getTotalMoney()) +"VND";
+    }
+
+    public String getTotalFormat() {
+        DecimalFormat df = new DecimalFormat("###,###,###");
+        return df.format(total) + "VND";
     }
 }
