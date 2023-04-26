@@ -4,6 +4,7 @@ import com.cdweb.bookstore.entities.CategoryEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +27,13 @@ public class BookDTO {
     private double discount_percent;
 
     private int quantitySold;
+    private boolean active;
+    private boolean hot;
+    private boolean news;
 
     private CategoryDTO category;
-//    private List<BookImageDTO> images = new ArrayList<>();
+    private AuthorDTO author;
+    private List<BookImageDTO> images = new ArrayList<>();
 
     //getter & setter
     public int getId() {
@@ -91,7 +96,7 @@ public class BookDTO {
         return discount_percent;
     }
 
-    public void setDiscount_percent(int discount_percent) {
+    public void setDiscount_percent(double discount_percent) {
         this.discount_percent = discount_percent;
     }
 
@@ -111,17 +116,48 @@ public class BookDTO {
         this.category = category;
     }
 
-//    public List<BookImageDTO> getImages() {
-//        return images;
-//    }
-//
-//    public void setImages(List<BookImageDTO> images) {
-//        this.images = images;
-//    }
+    public AuthorDTO getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(AuthorDTO author) {
+        this.author = author;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public boolean isHot() {
+        return hot;
+    }
+
+    public void setHot(boolean hot) {
+        this.hot = hot;
+    }
+
+    public boolean isNews() {
+        return news;
+    }
+
+    public void setNews(boolean news) {
+        this.news = news;
+    }
+
+    public List<BookImageDTO> getImages() {
+        return images;
+    }
+
+    public void setImages(List<BookImageDTO> images) {
+        this.images = images;
+    }
 
     public String getDiscountPrice() {
-        double percent = this.discount_percent / 100;
-        double discountPrice = this.price * (1 - percent);
+        double discountPrice = this.price * (1 - this.discount_percent / 100);
         DecimalFormat df = new DecimalFormat("###,###,###");
         return df.format(discountPrice) + " VNĐ";
 

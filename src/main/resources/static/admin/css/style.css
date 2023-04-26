@@ -151,3 +151,14 @@ body {
         padding-right: 15px !important;
     }
 }
+
+.btn-return {
+    text-decoration: none;
+    color: white;
+}
+
+.btn-return:hover {
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+}

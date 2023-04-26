@@ -19,4 +19,9 @@ public class CategoryController {
     public List<CategoryDTO> findAll() {
         return catServiceImp.findAll();
     }
+
+    @GetMapping("/getCategory")
+    public List<CategoryDTO> getTenCat() {
+        return catServiceImp.findTenCat();
+    }
 }

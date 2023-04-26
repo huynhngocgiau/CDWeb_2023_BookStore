@@ -145,4 +145,28 @@ public class UserServiceImp implements IUserService {
             userRepo.updatePass(passwordEncoder.encode(password), userFromDb.getUserID());
         }
     }
+
+    @Override
+    public List<UserDTO> findAllUser() {
+        List<UserDTO> result = new ArrayList<>();
+        for (UserEntity u : userRepo.findAll()) {
+            result.add(userConverter.toDTO(u));
+        }
+        return result;
+    }
+
+    @Override
+    public UserDTO findByUserId(int id) {
+        return userConverter.toDTO(userRepo.findByUserID(id));
+    }
+
+    @Override
+    public void deleteByUserId(int id) {
+        userRepo.deleteByUserID(id);
+    }
+
+    @Override
+    public void save(UserDTO user) {
+        userRepo.save(userConverter.toEntity(user));
+    }
 }

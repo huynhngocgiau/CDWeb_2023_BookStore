@@ -18,4 +18,19 @@ public class BookConverter {
     public BookDTO toDTO(BookEntity bookEntity) {
         return modelMapper.map(bookEntity, BookDTO.class);
     }
+
+    public BookEntity fromDtoToEntity(BookDTO dto, BookEntity entity) {
+        entity.setId(dto.getId());
+        entity.setTitle(dto.getTitle());
+        entity.setDescription(dto.getDescription());
+        entity.setDiscount_percent(dto.getDiscount_percent());
+        entity.setPrice(dto.getPrice());
+        entity.setTotal_page(dto.getTotal_page());
+        entity.setPublisher(dto.getPublisher());
+        entity.setYear_public(dto.getYear_public());
+        entity.setActive(dto.isActive());
+        entity.setHot(dto.isHot());
+        entity.setNews(dto.isNews());
+        return entity;
+    }
 }

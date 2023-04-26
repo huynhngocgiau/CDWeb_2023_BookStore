@@ -23,8 +23,6 @@ public class UserEntity {
     private String password;
     @Column(name = "confirm_token")
     private String confirmToken;
-    @Column(name = "avatar_path")
-    private String avatarPath;
     private boolean status;
     @Column(name = "is_enable")
     private boolean isEnable;
@@ -118,14 +116,6 @@ public class UserEntity {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getAvatarPath() {
-        return avatarPath;
-    }
-
-    public void setAvatarPath(String avatarPath) {
-        this.avatarPath = avatarPath;
     }
 
     public boolean isStatus() {

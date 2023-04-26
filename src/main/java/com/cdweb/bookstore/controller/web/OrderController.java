@@ -2,14 +2,12 @@ package com.cdweb.bookstore.controller.web;
 
 import com.cdweb.bookstore.api.CartOutput;
 import com.cdweb.bookstore.api.input.OrderInput;
+import com.cdweb.bookstore.dto.BookDTO;
 import com.cdweb.bookstore.dto.CartDTO;
 import com.cdweb.bookstore.dto.OrderDTO;
 import com.cdweb.bookstore.dto.OrderlineDTO;
 import com.cdweb.bookstore.repository.OrderRepository;
-import com.cdweb.bookstore.service.ICartService;
-import com.cdweb.bookstore.service.IOrderService;
-import com.cdweb.bookstore.service.IOrderlineService;
-import com.cdweb.bookstore.service.IUserService;
+import com.cdweb.bookstore.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,6 +32,8 @@ public class OrderController {
     private IOrderService orderService;
     @Autowired
     private IOrderlineService orderlineService;
+    @Autowired
+    private IBookService bookService;
 
     @PostMapping("/thanh-toan")
     //lay list cart item, total dem qua trang thanh toan
@@ -78,6 +78,11 @@ public class OrderController {
             //xóa luôn sp đã đặt trong cart
             orderLineList.add(line);
             cartService.deleteCart(cart);
+
+            //tăng quantity cho book
+            BookDTO book = bookService.findById(cart.getBook().getId());
+            //cart.quantity là số lượng sách mà người dùng đặt mua
+            bookService.updateQuantity(book.getQuantitySold() + cart.getQuantity(), cart.getBook().getId());
         }
         //tạo order mới
         OrderDTO newOrder = new OrderDTO();
@@ -107,7 +112,7 @@ public class OrderController {
     public ModelAndView checkOrder(Principal principal) {
         ModelAndView mav = new ModelAndView("web/checkOrder.html");
         if (principal == null) return new ModelAndView("web/signin.html");
-        mav.addObject("orders", orderService.findAll(userService.findByEmailAndIsEnable(principal.getName()).getUserID()));
+        mav.addObject("orders", orderService.findAllByUserId(userService.findByEmailAndIsEnable(principal.getName()).getUserID()));
         return mav;
     }
 }

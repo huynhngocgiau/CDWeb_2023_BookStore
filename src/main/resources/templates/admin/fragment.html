@@ -33,16 +33,7 @@
         </ul>
 
         <ul class="nav navbar-nav navbar-right navbar-user">
-            <li class="dropdown user-dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b
-                        class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#"><i class="fa fa-user"></i> Tài khoản</a></li>
-                    <li><a href="#"><i class="fa fa-gear"></i> Cài đặt</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#"><i class="fa fa-power-off"></i> Đăng xuất</a></li>
-                </ul>
-            </li>
+
         </ul>
     </div><!-- /.navbar-collapse -->
 </nav>
@@ -55,5 +46,29 @@
 <script th:src="@{/admin/js/custom.js}"></script>
 <script th:src="@{/admin/js/jquery.dataTables.min.js}"></script>
 <script th:src="@{/admin/js/dataTables.bootstrap.min.js}"></script>
+<script>
+    $(function () {
+        $.ajax({
+            url: "getAdmin",
+            cache: false,
+            dataType: "json",
+            success: function (user) {
+                var str = "";
+                if (user.email != null) {
+                    str += "<li class='dropdown user-dropdown'>";
+                    str += "<a class='dropdown-toggle' data-toggle='dropdown'><i style='margin-right: 5px' class='fa fa-user'></i>Xin chào, "+user.username+"<b class='caret'></b></a>";
+                    str += "<ul class='dropdown-menu'>";
+                    str += "    <li><a href='/thong-tin-tai-khoan'><i class='fa fa-user'></i> Tài khoản</a></li>";
+                    str += "    <li><a href='/'><i class='fa fa-gear'></i> Trang chủ</a></li>";
+                    str += "    <li class='divider'></li>";
+                    str += "    <li><a href='/logout'><i class='fa fa-power-off'></i> Đăng xuất</a></li>";
+                    str += "</ul>";
+                    str += "</li>";
+                }
+                $(".navbar-user").html(str);
+            }
+        })
+    })
+</script>
 </body>
 </html>
