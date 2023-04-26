@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.awt.print.Book;
 import java.util.List;
 
 @RestController
@@ -24,6 +25,7 @@ public class BookController {
     @GetMapping("/danh-sach-san-pham")
     public BookOutput findAll(
             @RequestParam(name = "category", required = false, defaultValue = "null") String category,
+            @RequestParam(name = "author", required = false, defaultValue = "null") String author,
             @RequestParam(name = "page", required = false, defaultValue = "1") Integer page,
             @RequestParam(name = "hot", required = false, defaultValue = "false") boolean isHot,
             @RequestParam(name = "news", required = false, defaultValue = "false") boolean isNew,
@@ -62,6 +64,11 @@ public class BookController {
             output.setPage(page);
             output.setTotalPage((int) Math.round(Math.ceil((double) (bookService.countByCategory(category)) / SIZE)));
 
+        } else if (!author.equalsIgnoreCase("null")) {
+            output.setResult(bookService.findAllByAuthorCode(author, pageable));
+            output.setPage(page);
+            output.setTotalPage((int) Math.round(Math.ceil((double) (bookService.countByAuthorCode(author)) / SIZE)));
+
         } else if (isHot) {
             output.setResult(bookService.findAllHotBook(true, true, pageable));
             output.setPage(page);
@@ -90,6 +97,8 @@ public class BookController {
     @GetMapping("/chi-tiet")
     public ModelAndView detail(@RequestParam(name = "id") Integer id) {
         ModelAndView mav = new ModelAndView("web/detail.html");
+        BookDTO bookDb = bookService.findById(id);
+        mav.addObject("list", bookService.findByCategoryIdAnQuantityGreaterThan(bookDb.getCategory().getCategoryId(),50));
         return mav;
     }
 

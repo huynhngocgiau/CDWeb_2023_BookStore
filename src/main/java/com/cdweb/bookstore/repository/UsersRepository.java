@@ -39,4 +39,8 @@ public interface UsersRepository extends JpaRepository<UserEntity, Integer> {
     public void updatePass(@Param(value = "pass") String newPass,
                            @Param(value = "id") int id);
 
+    @Transactional
+    @Modifying
+    public void deleteByUserID(int id);
+
 }

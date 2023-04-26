@@ -17,7 +17,6 @@ public class UserDTO {
     private String phone;
     private String password;
     private String confirmToken;
-    private String avatarPath;
     private boolean status;
     private boolean isEnable;
     private LocalDate createdAt;
@@ -104,14 +103,6 @@ public class UserDTO {
         this.password = password;
     }
 
-    public String getAvatarPath() {
-        return avatarPath;
-    }
-
-    public void setAvatarPath(String avatarPath) {
-        this.avatarPath = avatarPath;
-    }
-
     public boolean isStatus() {
         return status;
     }
@@ -143,5 +134,12 @@ public class UserDTO {
 
     public void setRoles(List<RoleDTO> roles) {
         this.roles = roles;
+    }
+
+    public boolean isContain(String roleName) {
+        for (RoleDTO r : roles) {
+            if (r.getName().equals(roleName)) return true;
+        }
+        return false;
     }
 }

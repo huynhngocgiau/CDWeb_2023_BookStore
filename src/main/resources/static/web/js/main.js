@@ -146,8 +146,8 @@ function showBook(listBook) {
     for (let book of listBook) {
         str += "<div class='col-lg-4 col-md-6 col-sm-12 pb-1'>";
         str += "<div class='card product-item border-0 mb-4'>";
-        str += "<div class='card-header product-img position-relative overflow-hidden bg-transparent border p-0'>";
-        str += "<img class='img-fluid w-100' src='/web/images/book/truyen-tranh/conan-1.jpg' alt=''>";
+        str += "<div style='height: 250px' class='card-header product-img position-relative overflow-hidden bg-transparent border p-0 d-flex justify-content-center'>";
+        str += "<img class='img-fluid' src='"+book.images[0].path+"' alt='"+book.title+"' style='object-fit: contain'>";
         str += "</div>";
 
         //hien thi sach

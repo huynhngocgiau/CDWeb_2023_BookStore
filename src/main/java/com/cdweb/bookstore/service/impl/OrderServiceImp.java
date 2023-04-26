@@ -24,12 +24,32 @@ public class OrderServiceImp implements IOrderService {
     }
 
     @Override
-    public List<OrderDTO> findAll(int id) {
+    public List<OrderDTO> findAllByUserId(int id) {
         List<OrderEntity> list = orderRepository.findAllByUserUserID(id);
         List<OrderDTO> result = new ArrayList<>();
         for (OrderEntity e : list) {
             result.add(orderConverter.toDTO(e));
         }
         return result;
+    }
+
+    @Override
+    public List<OrderDTO> findAll() {
+        List<OrderEntity> list = orderRepository.findAll();
+        List<OrderDTO> result = new ArrayList<>();
+        for (OrderEntity e : list) {
+            result.add(orderConverter.toDTO(e));
+        }
+        return result;
+    }
+
+    @Override
+    public OrderDTO findById(int id) {
+        return orderConverter.toDTO(orderRepository.findByOrderID(id));
+    }
+
+    @Override
+    public void deleteById(int id) {
+        orderRepository.deleteByOrderID(id);
     }
 }

@@ -19,7 +19,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" th:href="@{/web/css/owl.carousel.min.css}"
+    <link th:href="@{/web/css/owl.carousel.min.css}"
           rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
@@ -115,7 +115,6 @@
                     <div class="navbar-nav mr-auto py-0">
                         <a href="/" class="nav-item nav-link active content-link">Trang chủ</a>
                         <a href="/san-pham" class="nav-item nav-link content-link">Sản phẩm</a>
-                        <a href="/san-pham" class="nav-item nav-link content-link">Giảm giá</a>
                         <a href="/ve-chung-toi" class="nav-item nav-link content-link">Về chúng tôi</a>
                         <a href="/lien-he" class="nav-item nav-link content-link">Liên hệ</a>
                     </div>
@@ -167,6 +166,7 @@
                 <div class="col-md-4 mb-5">
                     <h5 class="font-weight-bold text-dark mb-4">Quick Links</h5>
                     <div class="d-flex flex-column justify-content-start">
+<<<<<<< Updated upstream
                         <a class="text-dark mb-2" href="index.html"><i class="fa fa-angle-right mr-2"></i>Home</a>
                         <a class="text-dark mb-2" href="shop.html"><i class="fa fa-angle-right mr-2"></i>Our Shop</a>
                         <a class="text-dark mb-2" href="detail.html"><i class="fa fa-angle-right mr-2"></i>Shop
@@ -176,6 +176,13 @@
                         <a class="text-dark mb-2" href="checkout.html"><i
                                 class="fa fa-angle-right mr-2"></i>Checkout</a>
                         <a class="text-dark" href="contact.html"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
+=======
+                        <a class="text-dark mb-2" href="/"><i class="fa fa-angle-right mr-2"></i>Trang chủ</a>
+                        <a class="text-dark mb-2" href="/san-pham"><i class="fa fa-angle-right mr-2"></i>Sản phẩm</a>
+                        <a class="text-dark mb-2" href="/ve-chung-toi"><i
+                                class="fa fa-angle-right mr-2"></i>Về chúng tôi</a>
+                        <a class="text-dark" href="/lien-he"><i class="fa fa-angle-right mr-2"></i>Liên hệ</a>
+>>>>>>> Stashed changes
                     </div>
                 </div>
                 <div class="col-md-4 mb-5">
@@ -230,8 +237,8 @@
 <!-- JavaScript Libraries -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-<script src="lib/easing/easing.min.js" th:src="@{/web/js/easing.min.js}"></script>
-<script src="lib/owlcarousel/owl.carousel.min.js" th:src="@{/web/js/owl.carousel.min.js}"></script>
+<script th:src="@{/web/js/easing.min.js}"></script>
+<script th:src="@{/web/js/owl.carousel.min.js}"></script>
 
 <!-- Template Javascript -->
 <script src="js/main.js" th:src="@{/web/js/main.js}"></script>
@@ -267,7 +274,7 @@
 
     //ajax category
     $.ajax({
-        url: "/getAllCat", type: "GET", cache: false, success: function (results) {
+        url: "/getCategory", type: "GET", cache: false, success: function (results) {
             var str = "";
             $.each(results, function (index, category) {
                 str += "<a href='/san-pham?category=" + category.code + "' class='nav-item nav-link'>" + category.name + "</a>";

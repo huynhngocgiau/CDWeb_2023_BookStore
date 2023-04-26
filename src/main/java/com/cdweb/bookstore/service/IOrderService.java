@@ -7,5 +7,11 @@ import java.util.List;
 public interface IOrderService {
     public OrderDTO save(OrderDTO order);
 
-    public List<OrderDTO> findAll(int id);
+    public List<OrderDTO> findAllByUserId(int id);
+
+    public List<OrderDTO> findAll();
+
+    public OrderDTO findById(int id);
+
+    public void deleteById(int id);
 }

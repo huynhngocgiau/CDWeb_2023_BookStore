@@ -1,6 +1,9 @@
 package com.cdweb.bookstore.service;
 
 import com.cdweb.bookstore.dto.UserDTO;
+import com.cdweb.bookstore.entities.UserEntity;
+
+import java.util.List;
 
 public interface IUserService {
     public UserDTO findByEmailAndIsEnable(String email);
@@ -20,4 +23,12 @@ public interface IUserService {
     public boolean checkPass(String email, String password);
 
     public void changePassword(String password, String email);
+
+    public List<UserDTO> findAllUser();
+
+    public UserDTO findByUserId(int id);
+
+    public void deleteByUserId(int id);
+
+    public void save(UserDTO user);
 }

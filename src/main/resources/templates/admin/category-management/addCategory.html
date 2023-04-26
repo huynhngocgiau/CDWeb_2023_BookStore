@@ -22,54 +22,27 @@
             <h3 class="text-center">Thêm danh mục</h3>
         </div>
         <div class="row">
-            <form class="well form-horizontal">
+            <form method="post" th:action="@{/admin-page/add-category}" th:object="${cat}" class="well form-horizontal">
                 <fieldset>
                     <div class="form-group">
                         <label class="col-md-4 control-label">Tên danh mục</label>
                         <div class="col-md-4 inputGroupContainer">
-                            <input id="title" name="fullName"
-                                   placeholder="Full Name"
-                                   class="form-control"
-                                   required="true" value=""
-                                   type="text">
+                            <input name="name" class="form-control" required="true" type="text">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-md-4 control-label">Mã danh mục</label>
                         <div class="col-md-4 inputGroupContainer">
-                            <input id="totalPage"
-                                   name="addressLine2"
-                                   placeholder="Address Line 2"
-                                   class="form-control"
-                                   required="true" value=""
-                                   type="number">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">Ngày tạo</label>
-                        <div class="col-md-4 inputGroupContainer">
-                            <input id="publisher" name="city"
-                                   placeholder="City"
-                                   class="form-control"
-                                   required="true" value=""
-                                   type="date">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">Ngày sửa</label>
-                        <div class="col-md-4 inputGroupContainer">
-                            <input id="price" name="city"
-                                   placeholder="City"
-                                   class="form-control"
-                                   required="true" value=""
-                                   type="date">
+                            <input name="code" class="form-control" required="true" type="text">
                         </div>
                     </div>
                 </fieldset>
                 <div class="row">
                     <div class="col-12 text-center">
                         <button type="submit" class="btn btn-success">Thêm danh mục</button>
+                        <a type="button" class="btn btn-primary" href="/admin-page/category-management">Trở
+                            lại</a>
                     </div>
                 </div>
 

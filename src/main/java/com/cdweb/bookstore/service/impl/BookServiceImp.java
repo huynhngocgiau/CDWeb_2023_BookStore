@@ -1,10 +1,17 @@
 package com.cdweb.bookstore.service.impl;
 
+import com.cdweb.bookstore.api.input.BookInput;
 import com.cdweb.bookstore.converter.BookConverter;
 import com.cdweb.bookstore.dto.BookDTO;
+import com.cdweb.bookstore.dto.BookImageDTO;
 import com.cdweb.bookstore.entities.BookEntity;
+import com.cdweb.bookstore.entities.BookImageEntity;
+import com.cdweb.bookstore.repository.AuthorRepository;
+import com.cdweb.bookstore.repository.BookImageRepository;
 import com.cdweb.bookstore.repository.BookRepository;
+import com.cdweb.bookstore.repository.CategoryRepository;
 import com.cdweb.bookstore.service.IBookService;
+import com.cdweb.bookstore.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -18,12 +25,27 @@ public class BookServiceImp implements IBookService {
     private BookRepository bookRepo;
     @Autowired
     private BookConverter bookConverter;
+    @Autowired
+    private CategoryRepository categoryRepository;
+    @Autowired
+    private AuthorRepository authorRepository;
+    @Autowired
+    private BookImageRepository bookImageRepository;
 
 
     @Override
     public List<BookDTO> findByCategoryCode(String categoryCode, Pageable pageable) {
         List<BookDTO> results = new ArrayList<>();
         for (BookEntity b : bookRepo.findByCategoryCode(categoryCode, pageable).getContent()) {
+            results.add(bookConverter.toDTO(b));
+        }
+        return results;
+    }
+
+    @Override
+    public List<BookDTO> findAllByAuthorCode(String code, Pageable pageable) {
+        List<BookDTO> results = new ArrayList<>();
+        for (BookEntity b : bookRepo.findAllByAuthorAuthorCode(code, pageable).getContent()) {
             results.add(bookConverter.toDTO(b));
         }
         return results;
@@ -40,11 +62,19 @@ public class BookServiceImp implements IBookService {
         return results;
     }
 
+    @Override
+    public List<BookDTO> findAll() {
+        List<BookDTO> results = new ArrayList<>();
+        for (BookEntity b : bookRepo.findAll()) {
+            results.add(bookConverter.toDTO(b));
+        }
+        return results;
+    }
 
     @Override
     public List<BookDTO> findHotBook(boolean isActive, boolean isHot) {
         List<BookDTO> results = new ArrayList<>();
-        for (BookEntity b : bookRepo.findFirst8ByActiveAndHot(isActive, isHot)) {
+        for (BookEntity b : bookRepo.findFirst8ByActiveAndHotOrderByIdDesc(isActive, isHot)) {
             results.add(bookConverter.toDTO(b));
         }
         return results;
@@ -53,7 +83,7 @@ public class BookServiceImp implements IBookService {
     @Override
     public List<BookDTO> findNewBook(boolean isActive, boolean isNew) {
         List<BookDTO> results = new ArrayList<>();
-        for (BookEntity b : bookRepo.findFirst8ByActiveAndNews(isActive, isNew)) {
+        for (BookEntity b : bookRepo.findFirst8ByActiveAndNewsOrderByIdDesc(isActive, isNew)) {
             results.add(bookConverter.toDTO(b));
         }
         return results;
@@ -124,6 +154,11 @@ public class BookServiceImp implements IBookService {
     }
 
     @Override
+    public int countByAuthorCode(String code) {
+        return bookRepo.countAllByAuthorAuthorCode(code);
+    }
+
+    @Override
     public int countAllByActive(boolean isActive) {
         return bookRepo.countAllByActive(isActive);
     }
@@ -145,12 +180,38 @@ public class BookServiceImp implements IBookService {
 
     @Override
     public int countAllByPriceBetween(int from, int to) {
-            return bookRepo.countAllByPriceBetween(from, to);
+        return bookRepo.countAllByPriceBetween(from, to);
 
     }
 
     @Override
     public int countAllByPriceGreaterThan(int from) {
         return bookRepo.countAllByPriceGreaterThan(from);
+    }
+
+    @Override
+    public void deleteById(int id) {
+        bookRepo.deleteById(id);
+    }
+
+    @Override
+    public void save(BookDTO book) {
+        BookEntity bookEntity = new BookEntity();
+        if (book.getId() != 0) {
+            bookEntity = bookConverter.fromDtoToEntity(book, bookRepo.findById(book.getId()));
+        } else
+            bookEntity = bookConverter.toEntity(book);
+        bookEntity = bookRepo.save(bookEntity);
+        for (BookImageDTO i: book.getImages()) {
+            BookImageEntity image = new BookImageEntity();
+            image.setPath(i.getPath());
+            image.setBook(bookRepo.findFirstByOrderByIdDesc());
+            bookImageRepository.save(image);
+        }
+    }
+
+    @Override
+    public void updateQuantity(int quantity, int id) {
+        bookRepo.updateQuantity(quantity, id);
     }
 }

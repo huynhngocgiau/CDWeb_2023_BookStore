@@ -40,8 +40,13 @@ public class BookEntity {
     @JoinColumn(name = "categoryID")
     private CategoryEntity category;
 
-//    @OneToMany(mappedBy = "book")
-//    List<BookImageEntity> images = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "authorID")
+    private AuthorEntity author;
+
+    @OneToMany(mappedBy = "book")
+    List<BookImageEntity> images = new ArrayList<>();
 
     //getter & setter
     public int getId() {
@@ -104,7 +109,7 @@ public class BookEntity {
         return discount_percent;
     }
 
-    public void setDiscount_percent(int discount_percent) {
+    public void setDiscount_percent(double discount_percent) {
         this.discount_percent = discount_percent;
     }
 
@@ -164,11 +169,19 @@ public class BookEntity {
         this.category = category;
     }
 
-//    public List<BookImageEntity> getImages() {
-//        return images;
-//    }
-//
-//    public void setImages(List<BookImageEntity> images) {
-//        this.images = images;
-//    }
+    public AuthorEntity getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(AuthorEntity author) {
+        this.author = author;
+    }
+
+    public List<BookImageEntity> getImages() {
+        return images;
+    }
+
+    public void setImages(List<BookImageEntity> images) {
+        this.images = images;
+    }
 }

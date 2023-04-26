@@ -10324,7 +10324,11 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 .product-img img {
+<<<<<<< Updated upstream
     max-width: 70%;
+=======
+    width: 70%;
+>>>>>>> Stashed changes
 }
 
 .contact-form .help-block ul {
@@ -10353,18 +10357,18 @@ a.text-dark:hover, a.text-dark:focus {
 
 .btn-more {
     border-radius: 5px;
-    border: 1px solid red;
+    border: 1px solid #e36615;
     background: white;
 }
 
 .btn-more:hover {
-    background: red;
+    background: #e36615;
     transition: background-color 0.5s;
 }
 
 .btn-more a {
     text-decoration: none;
-    color: red;
+    color: #e36615;
 }
 
 .btn-more a:hover {
