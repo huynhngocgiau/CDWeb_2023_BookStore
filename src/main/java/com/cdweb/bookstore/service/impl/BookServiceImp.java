@@ -199,10 +199,12 @@ public class BookServiceImp implements IBookService {
         BookEntity bookEntity = new BookEntity();
         if (book.getId() != 0) {
             bookEntity = bookConverter.fromDtoToEntity(book, bookRepo.findById(book.getId()));
+            bookEntity.setCategory(categoryRepository.findByCategoryID(book.getCategory().getCategoryID()));
+            bookEntity.setAuthor(authorRepository.findByAuthorID(book.getAuthor().getAuthorID()));
         } else
             bookEntity = bookConverter.toEntity(book);
         bookEntity = bookRepo.save(bookEntity);
-        for (BookImageDTO i: book.getImages()) {
+        for (BookImageDTO i : book.getImages()) {
             BookImageEntity image = new BookImageEntity();
             image.setPath(i.getPath());
             image.setBook(bookRepo.findFirstByOrderByIdDesc());
@@ -213,5 +215,15 @@ public class BookServiceImp implements IBookService {
     @Override
     public void updateQuantity(int quantity, int id) {
         bookRepo.updateQuantity(quantity, id);
+    }
+
+    @Override
+    public List<String> autoCompleteTilte(String title) {
+        List<BookEntity> books = bookRepo.findAllByActiveAndTitleContains(true, title);
+        List<String> result = new ArrayList<>();
+        for (BookEntity b : books) {
+            result.add(b.getTitle());
+        }
+        return result;
     }
 }

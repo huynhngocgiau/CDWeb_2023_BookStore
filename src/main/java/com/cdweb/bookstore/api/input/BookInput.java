@@ -136,4 +136,24 @@ public class BookInput {
     public void setImages(MultipartFile images) {
         this.images = images;
     }
+
+    @Override
+    public String toString() {
+        return "BookInput{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", year_public=" + year_public +
+                ", total_page=" + total_page +
+                ", publisher='" + publisher + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", discount_percent=" + discount_percent +
+                ", authorId=" + authorId +
+                ", quantitySold=" + quantitySold +
+                ", categoryId=" + categoryId +
+                ", hot=" + hot +
+                ", news=" + news +
+                ", images=" + images +
+                '}';
+    }
 }

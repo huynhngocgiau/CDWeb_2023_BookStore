@@ -48,8 +48,8 @@ public class CategoryServiceImp implements ICategoryService {
     }
 
     @Override
-    public void updateCat(CategoryDTO cat, int id) {
-        catRepo.updateCategory(id, cat.getName(), cat.getCode());
+    public void updateCat(CategoryDTO cat) {
+        catRepo.updateCategory(cat.getName(), cat.getCode(), cat.getCreatedAt(), cat.getUpdatedAt(), cat.getCategoryID());
     }
 
     @Override

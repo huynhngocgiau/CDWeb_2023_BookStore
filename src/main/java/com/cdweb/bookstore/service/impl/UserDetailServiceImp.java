@@ -24,7 +24,7 @@ public class UserDetailServiceImp implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        UserEntity userEntity = userRepo.findByEmailIgnoreCaseAndIsEnable(email, true);
+        UserEntity userEntity = userRepo.findByEmailIgnoreCaseAndIsEnableAndStatus(email, true, true);
         //tìm trong dtb xem user có email đó có tồn tại hay khong
         if (userEntity == null) throw new UsernameNotFoundException(email + " không tồn tại trong database");
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();

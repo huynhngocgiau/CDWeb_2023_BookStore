@@ -45,7 +45,8 @@ public class BookEntity {
     @JoinColumn(name = "authorID")
     private AuthorEntity author;
 
-    @OneToMany(mappedBy = "book")
+    @OneToMany(mappedBy = "book",
+            cascade = CascadeType.REMOVE)
     List<BookImageEntity> images = new ArrayList<>();
 
     //getter & setter

@@ -14,6 +14,6 @@ public interface ICategoryService {
 
     public void deleteByCatId(int id);
 
-    public void updateCat(CategoryDTO cat, int id);
+    public void updateCat(CategoryDTO cat);
     public List<CategoryDTO> findTenCat();
 }

@@ -15,10 +15,10 @@ public class CategoryEntity {
     private String code;
     @Column(name = "name", length = 50)
     private String name;
-   @Column(name = "created_at")
-    private LocalDate created_at;
+    @Column(name = "created_at")
+    private LocalDate createdAt;
     @Column(name = "updated_at")
-    private LocalDate updated_at;
+    private LocalDate updatedAt;
     @OneToMany(mappedBy = "category")
     private List<BookEntity> books = new ArrayList<>();
 
@@ -46,19 +46,19 @@ public class CategoryEntity {
         this.name = name;
     }
 
-    public LocalDate getCreated_at() {
-        return created_at;
+    public void setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public void setCreated_at(LocalDate created_at) {
-        this.created_at = created_at;
+    public void setUpdatedAt(LocalDate updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
-    public LocalDate getUpdated_at() {
-        return updated_at;
+    public LocalDate getCreatedAt() {
+        return createdAt;
     }
 
-    public void setUpdated_at(LocalDate updated_at) {
-        this.updated_at = updated_at;
+    public LocalDate getUpdatedAt() {
+        return updatedAt;
     }
 }

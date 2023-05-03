@@ -59,7 +59,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label">Năm xuất bản</label>
                         <div class="col-md-4 inputGroupContainer">
-                            <select class="form-control" name="year_public" th:value="${book.year_public}">
+                            <select id="yearPublic" class="form-control" name="year_public" th:value="${book.year_public}">
                                 <option value="1940">1940</option>
                                 <option value="1941">1941</option>
                                 <option value="1942">1942</option>
@@ -198,11 +198,11 @@
                             <select class="form-control" id="category" name="categoryId">
                                 <th:block th:each="cat : ${categories}">
                                     <th:block th:if="${cat.name} == ${book.category.getName()}">
-                                        <option th:value="${cat.categoryId}" th:utext="${cat.getName()}"
-                                                selected></option>
+                                        <option th:value="${cat.categoryID}" th:utext="${cat.getName()}"
+                                                selected="selected"></option>
                                     </th:block>
                                     <th:block th:unless="${cat.name} == ${book.category.getName()}">
-                                        <option th:value="${cat.categoryId}" th:utext="${cat.getName()}"></option>
+                                        <option th:value="${cat.categoryID}" th:utext="${cat.getName()}"></option>
                                     </th:block>
                                 </th:block>
                             </select>
@@ -215,7 +215,7 @@
                                 <th:block th:each="au : ${authors}">
                                     <th:block th:if="${au.name} == ${book.author.getName()}">
                                         <option th:value="${au.authorID}" th:utext="${au.getName()}"
-                                                selected></option>
+                                                selected="selected"></option>
                                     </th:block>
                                     <th:block th:unless="${au.name} == ${book.author.getName()}">
                                         <option th:value="${au.authorID}" th:utext="${au.getName()}"></option>
@@ -270,6 +270,8 @@
             imglist.append(img);
         }
     };
+
+    $("#yearPublic").val($("#yearPublic").val());
 </script>
 </body>
 </html>

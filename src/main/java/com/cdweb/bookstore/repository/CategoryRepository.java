@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -20,9 +21,12 @@ public interface CategoryRepository extends JpaRepository<CategoryEntity, Intege
 
     @Transactional
     @Modifying
-    @Query(value = "update category set name=:name, code=:code where categoryID=:id", nativeQuery = true)
-    public void updateCategory(@Param("id") int id,
-                               @Param("name") String name,
-                               @Param("code") String code);
+    @Query(value = "update category set name=:name, code=:code, created_at=:createdAt, updated_at=:updatedAt where categoryID=:id", nativeQuery = true)
+    public void updateCategory(@Param("name") String name,
+                               @Param("code") String code,
+                               @Param("createdAt") LocalDate createdAt,
+                               @Param("updatedAt") LocalDate updatedAt,
+                               @Param("id") int id);
+
     public List<CategoryEntity> findFirst10ByOrderByCategoryIDAsc();
 }
