@@ -15,7 +15,7 @@ public interface AuthorRepository extends JpaRepository<AuthorEntity, Integer> {
 
     @Transactional
     @Modifying
-    @Query(value = "update author set name=:name, authorCode=:code, created_at=:createdAt, updated_at=:updatedAt where authorID=:id", nativeQuery = true)
+    @Query(value = "update author set name=:name, author_code=:code, created_at=:createdAt, updated_at=:updatedAt where authorID=:id", nativeQuery = true)
     public void updateAuthor(@Param("name") String name,
                              @Param("code")String code,
                              @Param("createdAt") LocalDate createdAt,

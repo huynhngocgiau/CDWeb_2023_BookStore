@@ -25,13 +25,13 @@
             <form th:action="@{/admin-page/edit-author}" method="post"
                   class="well form-horizontal" th:object="${author}">
                 <fieldset>
-                    <input type="hidden" name="authorID" th:value="${author.authorID}">
+                    <input type="hidden" name="authorID" th:value="${au.authorID}">
                     <div class="form-group">
                         <label class="col-md-4 control-label">Họ tên</label>
                         <div class="col-md-4 inputGroupContainer">
                             <input id="name" name="name"
                                    class="form-control"
-                                   required="true" th:value="${author.name}"
+                                   required="true" th:value="${au.name}"
                                    type="text">
                         </div>
                     </div>
@@ -41,7 +41,7 @@
                             <input id="code" name="authorCode"
                                    class="form-control"
                                    required="true"
-                                   type="text" th:value="${author.authorCode}">
+                                   type="text" th:value="${au.authorCode}">
                         </div>
                     </div>
                     <div class="form-group">
@@ -49,7 +49,7 @@
                         <div class="col-md-4 inputGroupContainer">
                             <input id="createdAt" name="createdAt"
                                    class="form-control"
-                                   th:value="${author.createdAt}"
+                                   th:value="${au.createdAt}"
                                    type="date">
                         </div>
                     </div>
@@ -58,7 +58,7 @@
                         <div class="col-md-4 inputGroupContainer">
                             <input id="updatedAt" name="updatedAt"
                                    class="form-control"
-                                   th:value="${author.updatedAt}"
+                                   th:value="${au.updatedAt}"
                                    type="date">
                         </div>
                     </div>

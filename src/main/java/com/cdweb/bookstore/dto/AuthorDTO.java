@@ -51,4 +51,14 @@ public class AuthorDTO {
         this.updatedAt = updatedAt;
     }
 
+    @Override
+    public String toString() {
+        return "AuthorDTO{" +
+                "authorID=" + authorID +
+                ", name='" + name + '\'' +
+                ", authorCode='" + authorCode + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
+    }
 }

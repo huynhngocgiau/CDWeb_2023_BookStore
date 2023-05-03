@@ -55,5 +55,6 @@ public interface IBookService {
     public void save(BookDTO book);
 
     public void updateQuantity(int quantity, int id);
+    public List<String> autoCompleteTilte(String title);
 
 }

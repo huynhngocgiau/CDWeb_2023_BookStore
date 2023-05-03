@@ -35,6 +35,7 @@
                         <thead>
                         <tr>
                             <th>Tên tác giả</th>
+                            <th>Mã tác giả</th>
                             <th>Ngày tạo</th>
                             <th>Ngày sửa đổi</th>
                             <th>Thao tác</th>
@@ -44,6 +45,7 @@
                         <th:block th:each="author : ${authors}">
                             <tr>
                                 <td th:utext="${author.name}"></td>
+                                <td th:utext="${author.authorCode}"></td>
                                 <td th:utext="${author.createdAt}"></td>
                                 <td th:utext="${author.updatedAt}"></td>
                                 <td>

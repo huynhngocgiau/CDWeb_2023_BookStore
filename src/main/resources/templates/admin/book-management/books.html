@@ -32,6 +32,7 @@
                             <th>Giá</th>
                             <th>Phần trăm giảm</th>
                             <th>Danh mục</th>
+                            <th>Tác giả</th>
                             <th>Thao tác</th>
                         </tr>
                         </thead>
@@ -42,6 +43,7 @@
                                 <td th:utext="${book.priceFormat}"></td>
                                 <td th:utext="${book.discount_percent}"></td>
                                 <td th:utext="${book.category.getName()}"></td>
+                                <td th:utext="${book.author.getName()}"></td>
                                 <td>
                                     <a type="button" class="btn btn-warning btn-action" title="Chi tiết" th:href="@{/admin-page/detail-book(id=${book.id})}"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                     <a type="button" class="btn btn-success btn-action" title="Chỉnh sửa" th:href="@{/admin-page/edit-book-page(id=${book.id})}" ><i class="fa fa-pencil" aria-hidden="true"></i></a>

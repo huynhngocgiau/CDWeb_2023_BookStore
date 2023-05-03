@@ -38,7 +38,7 @@ public class UserServiceImp implements IUserService {
     @Override
     public UserDTO findByEmailAndIsEnable(String email) {
         //tìm những email đã xác thực (isEnable = true)
-        UserEntity userEntity = userRepo.findByEmailIgnoreCaseAndIsEnable(email, true);
+        UserEntity userEntity = userRepo.findByEmailIgnoreCaseAndIsEnableAndStatus(email, true, true);
         if (userEntity != null) {
             return userConverter.toDTO(userEntity);
         }
@@ -48,11 +48,11 @@ public class UserServiceImp implements IUserService {
     public UserDTO sendMail(UserDTO user) {
         UserEntity userEntity = new UserEntity();
         //neu nhu tai khoan vs email da ton tai thi tra ve null
-        UserEntity existedUser = userRepo.findByEmailIgnoreCaseAndIsEnable(user.getEmail(), true);
+        UserEntity existedUser = userRepo.findByEmailIgnoreCaseAndIsEnableAndStatus(user.getEmail(), true, true);
         if (existedUser != null) return null;
         else {
             //neu tim dc nhung email da dang ki tai khoan nhung chua xac thuc thi xoa tk do luon
-            UserEntity temp = userRepo.findByEmailIgnoreCaseAndIsEnable(user.getEmail(), false);
+            UserEntity temp = userRepo.findByEmailIgnoreCaseAndIsEnableAndStatus(user.getEmail(), false, true);
             if (temp != null) userRepo.delete(temp);
 
             //set lai pass da ma hoa
@@ -100,7 +100,7 @@ public class UserServiceImp implements IUserService {
     @Override
     public UserDTO sendMailForgotPassword(String userEmail) {
         //nếu lấy email của user, tra csdl có tồn tại tài khoản thì lấy pass trong csdl gửi cho mail đó
-        UserEntity result = userRepo.findByEmailIgnoreCaseAndIsEnable(userEmail, true);
+        UserEntity result = userRepo.findByEmailIgnoreCaseAndIsEnableAndStatus(userEmail, true, true);
         if (result != null) {
             SimpleMailMessage message = new SimpleMailMessage();
             message.setTo(userEmail);
@@ -121,7 +121,7 @@ public class UserServiceImp implements IUserService {
         LocalDate birthdate = LocalDate.now();
         //gender: true là nữ, false là nam
         boolean gender = false;
-        UserEntity userFromDb = userRepo.findByEmailIgnoreCaseAndIsEnable(user.getEmail(), true);
+        UserEntity userFromDb = userRepo.findByEmailIgnoreCaseAndIsEnableAndStatus(user.getEmail(), true, true);
         if (user.getUsername() != null) username = user.getUsername();
         if (user.getFullname() != null) fullname = user.getFullname();
         if (user.getBirthdate() != null)
@@ -133,14 +133,14 @@ public class UserServiceImp implements IUserService {
 
     @Override
     public boolean checkPass(String email, String password) {
-        String userPass = userRepo.findByEmailIgnoreCaseAndIsEnable(email, true).getPassword();
+        String userPass = userRepo.findByEmailIgnoreCaseAndIsEnableAndStatus(email, true, true).getPassword();
         //dùng passwordEndcoder để kiểm tra xem mk nhập vào có giống vs mk đã mã hóa của người dùng
         return passwordEncoder.matches(password, userPass);
     }
 
     @Override
     public void changePassword(String password, String email) {
-        UserEntity userFromDb = userRepo.findByEmailIgnoreCaseAndIsEnable(email, true);
+        UserEntity userFromDb = userRepo.findByEmailIgnoreCaseAndIsEnableAndStatus(email, true,true);
         if (userFromDb != null) {
             userRepo.updatePass(passwordEncoder.encode(password), userFromDb.getUserID());
         }

@@ -28,6 +28,7 @@ public class BookConverter {
         entity.setTotal_page(dto.getTotal_page());
         entity.setPublisher(dto.getPublisher());
         entity.setYear_public(dto.getYear_public());
+        entity.setQuantitySold(dto.getQuantitySold());
         entity.setActive(dto.isActive());
         entity.setHot(dto.isHot());
         entity.setNews(dto.isNews());

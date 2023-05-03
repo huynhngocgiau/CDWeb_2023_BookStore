@@ -98,7 +98,7 @@ public class BookController {
     public ModelAndView detail(@RequestParam(name = "id") Integer id) {
         ModelAndView mav = new ModelAndView("web/detail.html");
         BookDTO bookDb = bookService.findById(id);
-        mav.addObject("list", bookService.findByCategoryIdAnQuantityGreaterThan(bookDb.getCategory().getCategoryId(),50));
+        mav.addObject("list", bookService.findByCategoryIdAnQuantityGreaterThan(bookDb.getCategory().getCategoryID(), 50));
         return mav;
     }
 
@@ -115,5 +115,10 @@ public class BookController {
     @GetMapping("/new-book")
     public List<BookDTO> findNewBook() {
         return bookService.findNewBook(true, true);
+    }
+
+    @GetMapping("/autocomplete")
+    public List<String> autoCompleteTitle(@RequestParam("title") String title) {
+        return bookService.autoCompleteTilte(title);
     }
 }

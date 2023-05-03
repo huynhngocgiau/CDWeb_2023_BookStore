@@ -10,6 +10,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
@@ -66,16 +67,19 @@ public class AdminController {
         }
         Path file = CURRENT_FOLDER.resolve(staticPath)
                 .resolve(imagePath).resolve(input.getImages().getOriginalFilename());
-        try (OutputStream os = Files.newOutputStream(file)) {
-            os.write(input.getImages().getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (!Files.exists(file)) {
+            try (OutputStream os = Files.newOutputStream(file)) {
+                os.write(input.getImages().getBytes());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         ModelAndView mav = new ModelAndView("redirect:/admin-page/book-management");
         BookDTO newBook = new BookDTO();
         if (input.getId() != 0) newBook.setId(input.getId());
         newBook.setTitle(input.getTitle());
         newBook.setDescription(input.getDescription());
+        newBook.setYear_public(input.getYear_public());
         if (input.getQuantitySold() != 0) newBook.setQuantitySold(input.getQuantitySold());
         newBook.setPrice(input.getPrice());
         if (input.getDiscount_percent() != 0) newBook.setDiscount_percent(input.getDiscount_percent());
@@ -88,17 +92,18 @@ public class AdminController {
         newBook.setAuthor(authorService.findById(input.getAuthorId()));
 
         //load hình
-        List<BookImageDTO> imageList = new ArrayList<>();
-        BookImageDTO img = new BookImageDTO();
-        StringTokenizer stringTokenizer = new StringTokenizer(imagePath.resolve(input.getImages().getOriginalFilename()).toString(), "\\");
-        String s = "";
-        while (stringTokenizer.hasMoreTokens()) {
-            s += stringTokenizer.nextToken() + "/";
+        if (!input.getImages().isEmpty()) {
+            List<BookImageDTO> imageList = new ArrayList<>();
+            BookImageDTO img = new BookImageDTO();
+            StringTokenizer stringTokenizer = new StringTokenizer(imagePath.resolve(input.getImages().getOriginalFilename()).toString(), "\\");
+            String s = "";
+            while (stringTokenizer.hasMoreTokens()) {
+                s += stringTokenizer.nextToken() + "/";
+            }
+            img.setPath(s.substring(0, s.length() - 1));
+            imageList.add(img);
+            newBook.setImages(imageList);
         }
-        img.setPath(s.substring(0, s.length() - 1));
-        imageList.add(img);
-        newBook.setImages(imageList);
-
         bookService.save(newBook);
         return mav;
     }
@@ -121,6 +126,18 @@ public class AdminController {
 
     @GetMapping("/delete-book")
     public ModelAndView deleteBook(@RequestParam("id") int id) {
+        Path staticPath = Paths.get("src/main/resources/static");
+        List<BookImageDTO> images = bookService.findById(id).getImages();
+        for (BookImageDTO i : images) {
+            Path imgPath=CURRENT_FOLDER.resolve(staticPath).resolve(i.getPath());
+            try {
+                if (Files.exists(imgPath))
+                    Files.deleteIfExists(imgPath);
+                else break;
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
         bookService.deleteById(id);
         ModelAndView mav = new ModelAndView("redirect:/admin-page/book-management");
         return mav;
@@ -156,7 +173,7 @@ public class AdminController {
 
     @PostMapping("/edit-category")
     public ModelAndView editCategory(@ModelAttribute("cat") CategoryDTO cat) {
-        categoryService.updateCat(cat, cat.getCategoryId());
+        categoryService.updateCat(cat);
         ModelAndView mav = new ModelAndView("redirect:/admin-page/category-management");
         return mav;
     }
@@ -191,7 +208,7 @@ public class AdminController {
     @GetMapping("/edit-author-page")
     public ModelAndView editAuthorPage(@RequestParam("id") int id) {
         ModelAndView mav = new ModelAndView("admin/author-management/editAuthor");
-        mav.addObject("author", authorService.findById(id));
+        mav.addObject("au", authorService.findById(id));
         return mav;
     }
 

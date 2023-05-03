@@ -12,7 +12,7 @@ import java.time.LocalDate;
 
 @Repository
 public interface UsersRepository extends JpaRepository<UserEntity, Integer> {
-    public UserEntity findByEmailIgnoreCaseAndIsEnable(String email, boolean isEnable);
+    public UserEntity findByEmailIgnoreCaseAndIsEnableAndStatus(String email, boolean isEnable, boolean status);
 
     @Query(value = "select confirm_token from users where userID=?1", nativeQuery = true)
     public String getConfirmTokenById(int id);
