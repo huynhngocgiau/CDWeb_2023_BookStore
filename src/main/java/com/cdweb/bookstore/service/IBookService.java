@@ -55,6 +55,11 @@ public interface IBookService {
     public void save(BookDTO book);
 
     public void updateQuantity(int quantity, int id);
+
     public List<String> autoCompleteTilte(String title);
+
+    public List<BookDTO> findAllByActiveAndDicount(boolean active, double discountFrom, double discountTo, Pageable pageable);
+
+    public int countAllByActiveAndDiscount(boolean active, double discountFrom, double discountTo);
 
 }

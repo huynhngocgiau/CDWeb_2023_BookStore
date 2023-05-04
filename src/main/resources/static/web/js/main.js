@@ -156,7 +156,7 @@ function showBook(listBook) {
         str += "<div class='d-flex justify-content-center'>"
         str += "<h6 class='new-price'>" + book.discountPrice + "</h6>";
         str += "<p class='ml-2' style='text-decoration: line-through; font-size: smaller'>";
-        str += book.discount_percent ? book.priceFormat : '';
+        str += book.discountPercent ? book.priceFormat : '';
         str += "</p>";
         str += "</div>";
         str += "</div>";

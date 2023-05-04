@@ -80,7 +80,7 @@
                         <div class="d-flex justify-content-center">
                             <h6 class="new-price" th:text="${book.getDiscountPrice()}"></h6>
                             <h6 class="text-muted ml-2">
-                                <del th:utext="${book.discount_percent} ? ${book.formatPrice(book.price)}"></del>
+                                <del th:utext="${book.discountPercent} ? ${book.formatPrice(book.price)}"></del>
                             </h6>
                         </div>
                     </div>
@@ -122,11 +122,11 @@
                 for (let i = 0; i < book.images.length; i++) {
                     if (i == 0) {
                         img += "<div class='carousel-item active'>";
-                        img += "<img class='w-50' src='" + book.images[i].path + "' alt='" + book.title + "'>";
+                        img += "<img class='w-50 detail-img' src='" + book.images[i].path + "' alt='" + book.title + "'>";
                         img += "</div>";
                     } else {
                         img += "<div class='carousel-item'>";
-                        img += "<img class='w-50' src='" + book.images[i].path + "' alt='" + book.title + "'>";
+                        img += "<img class='w-50 detail-img' src='" + book.images[i].path + "' alt='" + book.title + "'>";
                         img += "</div>";
                     }
                 }
@@ -137,10 +137,10 @@
                 detail += "<small class='pt-1 mb-1' style='display: block'>Tác giả: <a href='/san-pham?author=" + book.author.authorCode + "'>" + book.author.name + "</a></small>";
                 detail += "<small class='pt-1' style='display: block'>Số lượng đã bán: " + book.quantitySold + "</small>";
                 detail += "<h6 class='old-price text-muted' style='text-decoration: line-through; display:inline'>";
-                detail += book.discount_percent ? book.priceFormat : '';
+                detail += book.discountPercent ? book.priceFormat : '';
                 detail += "</h6>";
                 detail += "<span class='text-danger ml-2'>";
-                detail += book.discount_percent ? book.percentFormat : '';
+                detail += book.discountPercent ? book.percentFormat : '';
                 detail += "</span>";
                 detail += "<h3 class='font-weight-semi-bold mb-4 new-price'>";
                 detail += book.discountPrice;

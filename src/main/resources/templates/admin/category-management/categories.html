@@ -47,7 +47,10 @@
                                 <td th:utext="${cat.updatedAt}"></td>
                                 <td>
                                     <a type="button" title="Chỉnh sửa" class="btn btn-success btn-action" th:href="@{/admin-page/edit-category-page(id=${cat.categoryID})}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                    <a type="button" title="Xóa" class="btn btn-danger btn-action" th:href="@{/admin-page/delete-category(id=${cat.categoryID})}"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                    <a type="button" data-toggle="tooltip" title="Xóa" class="btn btn-danger btn-action"
+                                       th:href="@{/admin-page/delete-category(id=${cat.categoryID})}"
+                                       onclick="return confirm('Bạn có chắc muốn xóa')">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                 </td>
                             </tr>
                         </th:block>

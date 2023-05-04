@@ -42,16 +42,16 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label">Trạng thái</label>
                         <div class="col-md-4 inputGroupContainer">
-                            <input type="radio" value="true" name="status" id="status1">
+                            <input th:type="radio" value="true" name="status" id="status1" th:checked="${account.status}">
                             <label for="status1">Hoạt động</label>
-                            <input type="radio" value="false" name="status" id="status2">
+                            <input th:type="radio" value="false" name="status" id="status2" th:checked="${!account.status}">
                             <label for="status2">Ngừng hoạt động</label>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-4 control-label">Ngày sửa đổi</label>
                         <div class="col-md-4 inputGroupContainer">
-                            <input class="form-control" name="updatedAt" type="date">
+                            <input class="form-control" name="updatedAt" type="date" th:value="${account.updatedAt}">
                         </div>
                     </div>
                     <div class="form-group" th:if="!${account.isContain('ROLE_ADMIN')}">

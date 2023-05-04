@@ -23,7 +23,7 @@ public class BookConverter {
         entity.setId(dto.getId());
         entity.setTitle(dto.getTitle());
         entity.setDescription(dto.getDescription());
-        entity.setDiscount_percent(dto.getDiscount_percent());
+        entity.setDiscountPercent(dto.getDiscountPercent());
         entity.setPrice(dto.getPrice());
         entity.setTotal_page(dto.getTotal_page());
         entity.setPublisher(dto.getPublisher());

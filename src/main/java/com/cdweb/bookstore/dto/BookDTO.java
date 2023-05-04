@@ -24,7 +24,7 @@ public class BookDTO {
 
     private int price;
 
-    private double discount_percent;
+    private double discountPercent;
 
     private int quantitySold;
     private boolean active;
@@ -92,12 +92,12 @@ public class BookDTO {
         this.price = price;
     }
 
-    public double getDiscount_percent() {
-        return discount_percent;
+    public double getDiscountPercent() {
+        return discountPercent;
     }
 
-    public void setDiscount_percent(double discount_percent) {
-        this.discount_percent = discount_percent;
+    public void setDiscountPercent(double discountPercent) {
+        this.discountPercent = discountPercent;
     }
 
     public int getQuantitySold() {
@@ -157,14 +157,14 @@ public class BookDTO {
     }
 
     public String getDiscountPrice() {
-        double discountPrice = this.price * (1 - this.discount_percent / 100);
+        double discountPrice = this.price * (1 - this.discountPercent / 100);
         DecimalFormat df = new DecimalFormat("###,###,###");
         return df.format(discountPrice) + " VNĐ";
 
     }
 
     public double getDiscount() {
-        double percent = this.discount_percent / 100;
+        double percent = this.discountPercent / 100;
         double discountPrice = this.price * (1 - percent);
         return discountPrice;
 
@@ -181,6 +181,6 @@ public class BookDTO {
     }
 
     public String getPercentFormat() {
-        return "-" + this.discount_percent + "%";
+        return "-" + this.discountPercent + "%";
     }
 }

@@ -33,7 +33,8 @@ public class BookController {
             @RequestParam(name = "order", required = false, defaultValue = "asc") String sortOrder,
             @RequestParam(name = "title", required = false, defaultValue = "null") String title,
             @RequestParam(name = "from", required = false) Integer from,
-            @RequestParam(name = "to", required = false) Integer to
+            @RequestParam(name = "to", required = false) Integer to,
+            @RequestParam(name = "discount", required = false, defaultValue = "0") Double discount
     ) {
         //mặc định có 9 sản phẩm mỗi trang
         final int SIZE = 9;
@@ -78,6 +79,10 @@ public class BookController {
             output.setResult(bookService.findAllNewBook(true, true, pageable));
             output.setPage(page);
             output.setTotalPage((int) Math.round(Math.ceil((double) (bookService.countAllByNews(true, true)) / SIZE)));
+        } else if (discount != 0) {
+            output.setResult(bookService.findAllByActiveAndDicount(true, 1, discount, pageable));
+            output.setPage(page);
+            output.setTotalPage((int) Math.round(Math.ceil((double) (bookService.countAllByActiveAndDiscount(true, 1, discount)) / SIZE)));
         } else {
             output.setResult(bookService.findAll(pageable));
             output.setPage(page);

@@ -37,7 +37,7 @@ public class CartController {
         double total = 0.0;
         List<CartDTO> booksDb = cartService.getBooks(principal.getName());
         for (CartDTO c : booksDb) {
-            total += c.getBook().getPrice() * (1 - (c.getBook().getDiscount_percent() / 100)) * c.getQuantity();
+            total += c.getBook().getPrice() * (1 - (c.getBook().getDiscountPercent() / 100)) * c.getQuantity();
         }
         output.setTotal(total);
         output.setBooksList(booksDb);
@@ -51,7 +51,7 @@ public class CartController {
         CartOutput outputDelete = new CartOutput();
         double total = 0.0;
         for (CartDTO c : cartDeleted) {
-            total += c.getBook().getPrice() * (1 - (c.getBook().getDiscount_percent() / 100)) * c.getQuantity();
+            total += c.getBook().getPrice() * (1 - (c.getBook().getDiscountPercent() / 100)) * c.getQuantity();
         }
         outputDelete.setTotal(total);
         outputDelete.setBooksList(cartDeleted);
@@ -67,7 +67,7 @@ public class CartController {
         CartOutput outputUpdate = new CartOutput();
         double total = 0.0;
         for (CartDTO c : cartUpdate) {
-            total += c.getBook().getPrice() * (1 - (c.getBook().getDiscount_percent() / 100)) * c.getQuantity();
+            total += c.getBook().getPrice() * (1 - (c.getBook().getDiscountPercent() / 100)) * c.getQuantity();
         }
         outputUpdate.setTotal(total);
         outputUpdate.setBooksList(cartUpdate);

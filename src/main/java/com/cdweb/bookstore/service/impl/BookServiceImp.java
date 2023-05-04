@@ -149,6 +149,20 @@ public class BookServiceImp implements IBookService {
     }
 
     @Override
+    public List<BookDTO> findAllByActiveAndDicount(boolean active, double from, double to, Pageable pageable) {
+        List<BookDTO> results = new ArrayList<>();
+        for (BookEntity b : bookRepo.findAllByActiveAndDiscountPercentBetween(true, from, to, pageable).getContent()) {
+            results.add(bookConverter.toDTO(b));
+        }
+        return results;
+    }
+
+    @Override
+    public int countAllByActiveAndDiscount(boolean active, double from, double to) {
+        return bookRepo.countAllByActiveAndDiscountPercentBetween(active, from, to);
+    }
+
+    @Override
     public int countByCategory(String code) {
         return bookRepo.countAllByCategoryCode(code);
     }
