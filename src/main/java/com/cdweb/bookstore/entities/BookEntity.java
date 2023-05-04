@@ -2,7 +2,6 @@ package com.cdweb.bookstore.entities;
 
 import jakarta.persistence.*;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +23,8 @@ public class BookEntity {
     private String description;
 
     private int price;
-
-    private double discount_percent;
+    @Column(name = "discount_percent")
+    private double discountPercent;
 
     @Column(name = "quantity_sold")
     private int quantitySold;
@@ -106,12 +105,12 @@ public class BookEntity {
         this.price = price;
     }
 
-    public double getDiscount_percent() {
-        return discount_percent;
+    public double getDiscountPercent() {
+        return discountPercent;
     }
 
-    public void setDiscount_percent(double discount_percent) {
-        this.discount_percent = discount_percent;
+    public void setDiscountPercent(double discountPercent) {
+        this.discountPercent = discountPercent;
     }
 
     public int getQuantitySold() {

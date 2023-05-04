@@ -10378,11 +10378,17 @@ a.text-dark:hover, a.text-dark:focus {
     width: calc(100% - 30px);
     z-index: 1;
 }
+
 /*user infor*/
-#user-info{
+#user-info {
     width: 60%;
     margin: 10px auto;
 }
-#link-change-pass:hover{
+
+#link-change-pass:hover {
     cursor: pointer;
+}
+
+.detail-img {
+    margin-left: 130px;
 }

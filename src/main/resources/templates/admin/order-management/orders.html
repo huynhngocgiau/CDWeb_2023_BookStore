@@ -39,7 +39,10 @@
                                 <td th:utext="${order.totalPrice}"></td>
                                 <td>
                                     <a type="button" title="Chi tiết" class="btn btn-warning btn-action" th:href="@{/admin-page/detail-order(id=${order.orderID})}"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                    <a type="button" title="Xóa" class="btn btn-danger btn-action" th:href="@{/admin-page/delete-order(id=${order.orderID})}"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                    <a type="button" data-toggle="tooltip" title="Xóa" class="btn btn-danger btn-action"
+                                       th:href="@{/admin-page/delete-order(id=${order.orderID})}"
+                                       onclick="return confirm('Bạn có chắc muốn xóa')">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                 </td>
                             </tr>
                         </th:block>

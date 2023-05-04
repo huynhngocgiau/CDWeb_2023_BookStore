@@ -39,15 +39,16 @@
                                 <td th:if="${acc.status == true}">Hoạt động</td>
                                 <td th:if="${acc.status == false}">Ngừng hoạt động</td>
                                 <td>
-                                    <a type="button" title="Chỉnh sửa" class="btn btn-success btn-action"
-                                       th:href="@{/admin-page/edit-account-page(id=${acc.userID})}"><i
-                                            class="fa fa-pencil" aria-hidden="true"></i></a>
                                     <a type="button" title="Chi tiết" class="btn btn-warning btn-action"
                                        th:href="@{/admin-page/detail-account(id=${acc.userID})}"><i
                                             class="fa fa-eye" aria-hidden="true"></i></a>
-                                    <a type="button" title="Xóa" class="btn btn-danger btn-action"
-                                       th:href="@{/admin-page/delete-account(id=${acc.userID})}"><i
-                                            class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                    <a type="button" title="Chỉnh sửa" class="btn btn-success btn-action"
+                                       th:href="@{/admin-page/edit-account-page(id=${acc.userID})}"><i
+                                            class="fa fa-pencil" aria-hidden="true"></i></a>
+                                    <a type="button" data-toggle="tooltip" title="Xóa" class="btn btn-danger btn-action"
+                                       th:href="@{/admin-page/delete-account(id=${acc.userID})}"
+                                       onclick="return confirm('Bạn có chắc muốn xóa')">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                 </td>
                             </tr>
                         </th:block>

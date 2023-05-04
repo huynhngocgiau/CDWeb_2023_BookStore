@@ -42,7 +42,7 @@ public class CartDTO {
     }
 
     public double getTotalAmount() {
-        return this.quantity * book.getPrice() * (1 - book.getDiscount_percent() / 100);
+        return this.quantity * book.getPrice() * (1 - book.getDiscountPercent() / 100);
     }
 
     public String getTotalFormat() {

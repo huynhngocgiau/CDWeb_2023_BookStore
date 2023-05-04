@@ -82,7 +82,7 @@ public class AdminController {
         newBook.setYear_public(input.getYear_public());
         if (input.getQuantitySold() != 0) newBook.setQuantitySold(input.getQuantitySold());
         newBook.setPrice(input.getPrice());
-        if (input.getDiscount_percent() != 0) newBook.setDiscount_percent(input.getDiscount_percent());
+        if (input.getDiscount_percent() != 0) newBook.setDiscountPercent(input.getDiscount_percent());
         if (input.getPublisher() != null) newBook.setPublisher(input.getPublisher());
         if (input.getTotal_page() != 0) newBook.setTotal_page(input.getTotal_page());
         newBook.setNews(input.isNews());
@@ -111,6 +111,10 @@ public class AdminController {
     @GetMapping("/edit-book-page")
     public ModelAndView editBookPage(@RequestParam("id") int id) {
         ModelAndView mav = new ModelAndView("admin/book-management/editBook");
+        List<Integer> years = new ArrayList<>();
+        for (int i = 1940; i <= 2023; i++)
+            years.add(i);
+        mav.addObject("years", years);
         mav.addObject("book", bookService.findById(id));
         mav.addObject("categories", categoryService.findAll());
         mav.addObject("authors", authorService.findAll());
@@ -129,7 +133,7 @@ public class AdminController {
         Path staticPath = Paths.get("src/main/resources/static");
         List<BookImageDTO> images = bookService.findById(id).getImages();
         for (BookImageDTO i : images) {
-            Path imgPath=CURRENT_FOLDER.resolve(staticPath).resolve(i.getPath());
+            Path imgPath = CURRENT_FOLDER.resolve(staticPath).resolve(i.getPath());
             try {
                 if (Files.exists(imgPath))
                     Files.deleteIfExists(imgPath);

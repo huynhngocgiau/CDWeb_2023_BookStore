@@ -38,7 +38,10 @@ public interface BookRepository extends JpaRepository<BookEntity, Integer> {
     public Page<BookEntity> findAllByPriceBetween(int from, int to, Pageable pageable);
 
     public Page<BookEntity> findAllByPriceGreaterThan(int from, Pageable pageable);
+
     List<BookEntity> findAllByActiveAndTitleContains(boolean isActive, String title);
+
+    Page<BookEntity> findAllByActiveAndDiscountPercentBetween(boolean active, double discountFrom, double discountTo, Pageable pageable);
 
     //đếm số sách theo danh mục
     public int countAllByCategoryCode(String code);
@@ -57,6 +60,8 @@ public interface BookRepository extends JpaRepository<BookEntity, Integer> {
     public int countAllByPriceBetween(int from, int to);
 
     public int countAllByPriceGreaterThan(int from);
+
+    public int countAllByActiveAndDiscountPercentBetween(boolean active, double discountFrom, double discountTo);
 
     @Transactional
     @Modifying

@@ -49,10 +49,13 @@
                                 <td th:utext="${author.createdAt}"></td>
                                 <td th:utext="${author.updatedAt}"></td>
                                 <td>
-                                    <a type="button" title="Chỉnh sửa" class="btn btn-success btn-action" th:href="@{/admin-page/edit-author-page(id=${author.authorID})}"><i
+                                    <a type="button" title="Chỉnh sửa" class="btn btn-success btn-action"
+                                       th:href="@{/admin-page/edit-author-page(id=${author.authorID})}"><i
                                             class="fa fa-pencil" aria-hidden="true"></i></a>
-                                    <a type="button" title="Xóa" class="btn btn-danger btn-action" th:href="@{/admin-page/delete-author(id=${author.authorID})}"><i
-                                            class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                    <a type="button" data-toggle="tooltip" title="Xóa" class="btn btn-danger btn-action"
+                                       th:href="@{/admin-page/delete-author(id=${author.authorID})}"
+                                       onclick="return confirm('Bạn có chắc muốn xóa')">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                 </td>
                             </tr>
                         </th:block>
