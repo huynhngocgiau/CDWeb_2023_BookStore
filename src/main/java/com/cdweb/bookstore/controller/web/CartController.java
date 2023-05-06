@@ -1,6 +1,6 @@
 package com.cdweb.bookstore.controller.web;
 
-import com.cdweb.bookstore.api.CartOutput;
+import com.cdweb.bookstore.api.output.CartOutput;
 import com.cdweb.bookstore.dto.BookDTO;
 import com.cdweb.bookstore.dto.CartDTO;
 import com.cdweb.bookstore.service.ICartService;

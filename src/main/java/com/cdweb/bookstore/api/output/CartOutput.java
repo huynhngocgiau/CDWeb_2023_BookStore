@@ -1,4 +1,4 @@
-package com.cdweb.bookstore.api;
+package com.cdweb.bookstore.api.output;
 
 import com.cdweb.bookstore.dto.CartDTO;
 
