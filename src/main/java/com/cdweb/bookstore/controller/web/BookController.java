@@ -1,6 +1,6 @@
 package com.cdweb.bookstore.controller.web;
 
-import com.cdweb.bookstore.api.BookOutput;
+import com.cdweb.bookstore.api.output.BookOutput;
 import com.cdweb.bookstore.dto.BookDTO;
 import com.cdweb.bookstore.service.IBookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.awt.print.Book;
 import java.util.List;
 
 @RestController

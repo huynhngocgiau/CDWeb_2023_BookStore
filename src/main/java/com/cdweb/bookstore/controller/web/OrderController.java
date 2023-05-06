@@ -1,22 +1,19 @@
 package com.cdweb.bookstore.controller.web;
 
-import com.cdweb.bookstore.api.CartOutput;
+import com.cdweb.bookstore.api.output.CartOutput;
 import com.cdweb.bookstore.api.input.OrderInput;
 import com.cdweb.bookstore.dto.BookDTO;
 import com.cdweb.bookstore.dto.CartDTO;
 import com.cdweb.bookstore.dto.OrderDTO;
 import com.cdweb.bookstore.dto.OrderlineDTO;
-import com.cdweb.bookstore.repository.OrderRepository;
 import com.cdweb.bookstore.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.imageio.stream.MemoryCacheImageOutputStream;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.ArrayList;

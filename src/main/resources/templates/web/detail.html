@@ -71,7 +71,7 @@
         <div class="col">
             <div class="owl-carousel related-carousel">
                 <div class="card product-item border-0" th:each="book: ${list}">
-                    <div style='height: 250px' class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                    <div style='height: 150px' class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
                         <img style="object-fit: contain" class="img-fluid" th:src="${book.images[0].path}"
                              th:alt="${book.title}">
                     </div>
@@ -131,8 +131,8 @@
                     }
                 }
                 img += "</div>";
-
                 $("#product-carousel").html(img);
+
                 detail += "<h3 class='font-weight-semi-bold'>" + book.title + "</h3>";
                 detail += "<small class='pt-1 mb-1' style='display: block'>Tác giả: <a href='/san-pham?author=" + book.author.authorCode + "'>" + book.author.name + "</a></small>";
                 detail += "<small class='pt-1' style='display: block'>Số lượng đã bán: " + book.quantitySold + "</small>";
@@ -157,6 +157,7 @@
                 info += "<div class='tab-pane fade' id='tab-pane-2'>";
                 info += "<h4 class='mb-3'>Thông tin bổ sung</h4>";
                 info += "<p>TỔNG SỐ TRANG: " + book.total_page + "</p>";
+                info += "<p>NĂM PHÁT HÀNH: " + book.year_public + "</p>";
                 info += "<p>NHÀ PHÁT HÀNH: " + book.publisher + "</p>";
                 info += "</div>";
                 $(".tab-content").html(info);
