@@ -60,6 +60,7 @@ public class UserServiceImp implements IUserService {
             //tao confirm token
             user.setConfirmToken(new Random().nextInt(999999) + "");
             user.setCreatedAt(LocalDate.now());
+            user.setStatus(true);
 
             //tạo 1 list để lưu các role của người dùng
             List<RoleDTO> list = new ArrayList<>();
