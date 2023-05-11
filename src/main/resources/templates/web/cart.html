@@ -132,7 +132,7 @@
             str += "<input type=hidden id='totalAmountInput" + item.book.id + "' value='" + item.totalAmount + "'>";
             str += "</td>";
             str += "<td class='align-middle'>";
-            str += "    <button onclick='deleteBook(" + item.book.id + ")' class='btn btn-sm btn-primary'><i class='fa fa-times'></i></button>";
+            str += "    <button type='button' onclick='deleteBook(" + item.book.id + ")' class='btn btn-sm btn-primary'><i class='fa fa-times'></i></button>";
             str += "</td>";
             str += "</tr>";
         }
