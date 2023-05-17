@@ -100,15 +100,21 @@ public class UserServiceImp implements IUserService {
 
     @Override
     public UserDTO sendMailForgotPassword(String userEmail) {
-        //nếu lấy email của user, tra csdl có tồn tại tài khoản thì lấy pass trong csdl gửi cho mail đó
+        //nếu lấy email của user, tra csdl có tồn tại tài khoản thì tạo một mật khẩu random 8 k tự gửi cho mail đó
         UserEntity result = userRepo.findByEmailIgnoreCaseAndIsEnableAndStatus(userEmail, true, true);
         if (result != null) {
+            //tao random pass
+            String rdPass = new Random().nextInt(99999999) + "";
+            while (rdPass.charAt(0) == 0 || rdPass.charAt(rdPass.length()-1) == 0) rdPass = new Random().nextInt(99999999) + "";
+            //send mail
             SimpleMailMessage message = new SimpleMailMessage();
             message.setTo(userEmail);
             message.setSubject("Bookstore - Xác nhận email quên mật khẩu");
             message.setFrom("bookstore@gmail.com");
-            message.setText("Mật khẩu tài khoản bạn là: " + result.getPassword() + ". Mật khẩu của bạn đã được mã hóa. Vui lòng truy cập: https://bcrypt-generator.com/ để giải mã mật khẩu. Để bảo mật tài khoản vui lòng đăng nhập và thay đổi mật khẩu");
+            message.setText("Chúng tôi đã tạo mật khẩu mới cho tài khoản của bạn, mật khẩu là: " + rdPass + ". Để bảo mật tài khoản vui lòng đăng nhập và thay đổi mật khẩu");
             mailSender.send(message);
+            //cập nhật lại mật khẩu random trong db
+            changePassword(rdPass, userEmail);
             return userConverter.toDTO(result);
         }
         return null;
@@ -141,7 +147,7 @@ public class UserServiceImp implements IUserService {
 
     @Override
     public void changePassword(String password, String email) {
-        UserEntity userFromDb = userRepo.findByEmailIgnoreCaseAndIsEnableAndStatus(email, true,true);
+        UserEntity userFromDb = userRepo.findByEmailIgnoreCaseAndIsEnableAndStatus(email, true, true);
         if (userFromDb != null) {
             userRepo.updatePass(passwordEncoder.encode(password), userFromDb.getUserID());
         }

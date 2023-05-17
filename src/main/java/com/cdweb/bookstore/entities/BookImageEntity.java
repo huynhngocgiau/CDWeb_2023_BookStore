@@ -10,7 +10,7 @@ public class BookImageEntity {
     private int imageID;
     @Column
     private String path;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "bookID")
     private BookEntity book;
 
