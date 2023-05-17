@@ -35,7 +35,7 @@ public class BookEntity {
     private boolean active;
     private boolean news;
     private boolean hot;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "categoryID")
     private CategoryEntity category;
 
@@ -44,7 +44,7 @@ public class BookEntity {
     @JoinColumn(name = "authorID")
     private AuthorEntity author;
 
-    @OneToMany(mappedBy = "book",
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "book",
             cascade = CascadeType.REMOVE)
     List<BookImageEntity> images = new ArrayList<>();
 
