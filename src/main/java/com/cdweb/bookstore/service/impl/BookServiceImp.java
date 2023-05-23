@@ -221,7 +221,8 @@ public class BookServiceImp implements IBookService {
         for (BookImageDTO i : book.getImages()) {
             BookImageEntity image = new BookImageEntity();
             image.setPath(i.getPath());
-            image.setBook(bookRepo.findFirstByOrderByIdDesc());
+            if (book.getId() != 0) image.setBook(bookRepo.findById(book.getId()));
+            else image.setBook(bookRepo.findFirstByOrderByIdDesc());
             bookImageRepository.save(image);
         }
     }
