@@ -38,8 +38,6 @@ public class BookEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "categoryID")
     private CategoryEntity category;
-
-
     @ManyToOne
     @JoinColumn(name = "authorID")
     private AuthorEntity author;
