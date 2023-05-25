@@ -135,7 +135,6 @@ function movePage(page) {
         cache: false,
         dataType: "json",
         success: function (result) {
-            console.log(result)
             show(result)
         }
     });
@@ -274,7 +273,6 @@ function searchTitle() {
 
 function filterByPrice() {
     var filterPrice = $("input[type=radio][name=filterByPrice]:checked").val();
-    console.log(filterPrice)
     var searchValue = window.location.search;
     var filter = "";
     if (searchValue == "") {

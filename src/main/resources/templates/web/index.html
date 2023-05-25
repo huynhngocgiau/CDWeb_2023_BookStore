@@ -7,13 +7,6 @@
 <body>
 <!-- Topbar Start -->
 <div th:replace="~{web/fragment::topbar}"></div>
-<div class="col-12">
-    <th:block>
-        <div th:if="${message} != null" class="alert alert-info" th:utext="${message}">
-            <i class="fa-fw fa fa-check"></i>
-        </div>
-    </th:block>
-</div>
 <!-- Navbar Start -->
 <div class="container-fluid mb-5">
     <div class="row border-top px-xl-5">
