@@ -13,5 +13,7 @@ public interface IOrderService {
 
     public OrderDTO findById(int id);
 
+    public void update(OrderDTO order, int id);
+
     public void deleteById(int id);
 }

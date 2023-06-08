@@ -61,6 +61,7 @@ public class UserServiceImp implements IUserService {
             user.setConfirmToken(new Random().nextInt(999999) + "");
             user.setCreatedAt(LocalDate.now());
             user.setStatus(true);
+            user.setProvider("LOCAL");
 
             //tạo 1 list để lưu các role của người dùng
             List<RoleDTO> list = new ArrayList<>();
@@ -105,7 +106,8 @@ public class UserServiceImp implements IUserService {
         if (result != null) {
             //tao random pass
             String rdPass = new Random().nextInt(99999999) + "";
-            while (rdPass.charAt(0) == 0 || rdPass.charAt(rdPass.length()-1) == 0) rdPass = new Random().nextInt(99999999) + "";
+            while (rdPass.charAt(0) == 0 || rdPass.charAt(rdPass.length() - 1) == 0)
+                rdPass = new Random().nextInt(99999999) + "";
             //send mail
             SimpleMailMessage message = new SimpleMailMessage();
             message.setTo(userEmail);
@@ -175,5 +177,25 @@ public class UserServiceImp implements IUserService {
     @Override
     public void save(UserDTO user) {
         userRepo.save(userConverter.toEntity(user));
+    }
+
+    @Override
+    public void processOAuthPostLogin(String email) {
+        //nếu như tài khoản đã đăng ký và xác thực rồi thì không cần tạo lại
+        UserEntity user = userRepo.findByEmailIgnoreCaseAndIsEnableAndStatus(email, true, true);
+        //nếu như chưa có tài khoản thì tạo tk mới thêm vào db
+        if (user == null) {
+            UserEntity oauthUser = new UserEntity();
+            oauthUser.setEmail(email);
+            oauthUser.setUsername(email);
+            oauthUser.setEnable(true);
+            oauthUser.setCreatedAt(LocalDate.now());
+            oauthUser.setStatus(true);
+            oauthUser.setProvider("GOOGLE");
+            List<RoleEntity> roles = new ArrayList<>();
+            roles.add(roleRepo.findByName("ROLE_USER"));
+            oauthUser.setRoles(roles);
+            userRepo.save(oauthUser);
+        }
     }
 }

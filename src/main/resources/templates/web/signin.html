@@ -242,6 +242,36 @@
             height: 40px;
             width: 40px;
         }
+        .hr-lines{
+            position: relative;
+            max-width: 500px;
+            text-align: center;
+            margin: 10px auto;
+            color: grey;
+        }
+
+        .hr-lines:before{
+            content:" ";
+            height: 1px;
+            width: 50px;
+            background: grey;
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 25px;
+        }
+
+        .hr-lines:after{
+            content:" ";
+            height: 1px;
+            width: 50px;
+            background: grey;
+            display: block;
+            position: absolute;
+            top: 50%;
+            right: 25px;
+        }
+
     </style>
 </head>
 <body>
@@ -271,6 +301,8 @@
             <a th:href="@{quen-mat-khau}" class="mt-2 mb-2">Quên mật khẩu?</a>
             <a href="/" class="mb-2">Trang chủ</a>
             <button type="submit">Đăng nhập</button>
+            <p class="hr-lines">Hoặc</p>
+            <a class="mt-2" th:href="@{/oauth2/authorization/google}">Đăng nhập bằng Google</a>
         </form>
     </div>
     <div class="overlay-container">

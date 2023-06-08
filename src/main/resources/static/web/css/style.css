@@ -6160,12 +6160,12 @@ a.close.disabled {
     }
 }
 
-.carousel-inner .carousel-item .img-fluid {
-    object-fit: cover;
-    object-position: center;
-    height: 100vh;
-    overflow: hidden;
-}
+/*.carousel-inner .carousel-item .img-fluid {*/
+/*    object-fit: cover;*/
+/*    object-position: center;*/
+/*    height: 100vh;*/
+/*    overflow: hidden;*/
+/*}*/
 
 .carousel-indicators {
     position: absolute;
