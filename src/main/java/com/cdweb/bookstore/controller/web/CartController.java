@@ -3,8 +3,10 @@ package com.cdweb.bookstore.controller.web;
 import com.cdweb.bookstore.api.output.CartOutput;
 import com.cdweb.bookstore.dto.BookDTO;
 import com.cdweb.bookstore.dto.CartDTO;
+import com.cdweb.bookstore.oauth2.CustomOAuth2User;
 import com.cdweb.bookstore.service.ICartService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,24 +20,32 @@ public class CartController {
     private ICartService cartService;
 
     @GetMapping("/them-san-pham")
-    public CartDTO addProduct(@RequestParam(name = "bookID", required = false) int bookId,
-                              @RequestParam(name = "quantity", required = false) int quantity,
-                              Principal principal) {
-        if (principal != null) {
-            return cartService.addProduct(principal.getName(), bookId, quantity);
+    public CartDTO addProduct(@RequestParam(name = "bookID", required = false) int bookId, @RequestParam(name = "quantity", required = false) int quantity, Authentication authentication) {
+        if (authentication != null) {
+            String userEmail = "";
+            if (authentication.getPrincipal() instanceof CustomOAuth2User) {
+                CustomOAuth2User oAuth2User = (CustomOAuth2User) authentication.getPrincipal();
+                userEmail = oAuth2User.getAttribute("email");
+            } else userEmail = authentication.getName();
+            return cartService.addProduct(userEmail, bookId, quantity);
         }
         //tạo cart mới set user null, tạo book để nó đừng lỗi
-        CartDTO result= new CartDTO();
+        CartDTO result = new CartDTO();
         result.setBook(new BookDTO());
         return result;
     }
 
     @GetMapping("get-books")
-    public CartOutput getBooks(Principal principal) {
-        if (principal == null) return null;
+    public CartOutput getBooks(Authentication authentication) {
+        if (authentication == null) return null;
+        String userEmail = "";
+        if (authentication.getPrincipal() instanceof CustomOAuth2User) {
+            CustomOAuth2User oAuth2User = (CustomOAuth2User) authentication.getPrincipal();
+            userEmail = oAuth2User.getAttribute("email");
+        } else userEmail = authentication.getName();
         CartOutput output = new CartOutput();
         double total = 0.0;
-        List<CartDTO> booksDb = cartService.getBooks(principal.getName());
+        List<CartDTO> booksDb = cartService.getBooks(userEmail);
         for (CartDTO c : booksDb) {
             total += c.getBook().getPrice() * (1 - (c.getBook().getDiscountPercent() / 100)) * c.getQuantity();
         }
@@ -45,9 +55,14 @@ public class CartController {
     }
 
     @GetMapping("xoa-san-pham")
-    public CartOutput deleteBook(@RequestParam(name = "bookID") int bookId, Principal principal) {
-        if (principal == null) return null;
-        List<CartDTO> cartDeleted = cartService.deleteBook(principal.getName(), bookId);
+    public CartOutput deleteBook(@RequestParam(name = "bookID") int bookId, Authentication authentication) {
+        if (authentication == null) return null;
+        String userEmail = "";
+        if (authentication.getPrincipal() instanceof CustomOAuth2User) {
+            CustomOAuth2User oAuth2User = (CustomOAuth2User) authentication.getPrincipal();
+            userEmail = oAuth2User.getAttribute("email");
+        } else userEmail = authentication.getName();
+        List<CartDTO> cartDeleted = cartService.deleteBook(userEmail, bookId);
         CartOutput outputDelete = new CartOutput();
         double total = 0.0;
         for (CartDTO c : cartDeleted) {
@@ -59,11 +74,14 @@ public class CartController {
     }
 
     @GetMapping("update-quantity")
-    public CartOutput updateQuantity(@RequestParam(name = "bookID") int bookId,
-                                     @RequestParam(name = "quantity") int newQuantity,
-                                     Principal principal) {
-        if (principal == null) return null;
-        List<CartDTO> cartUpdate = cartService.updateQuantity(principal.getName(), bookId, newQuantity);
+    public CartOutput updateQuantity(@RequestParam(name = "bookID") int bookId, @RequestParam(name = "quantity") int newQuantity, Authentication authentication) {
+        if (authentication == null) return null;
+        String userEmail = "";
+        if (authentication.getPrincipal() instanceof CustomOAuth2User) {
+            CustomOAuth2User oAuth2User = (CustomOAuth2User) authentication.getPrincipal();
+            userEmail = oAuth2User.getAttribute("email");
+        } else userEmail = authentication.getName();
+        List<CartDTO> cartUpdate = cartService.updateQuantity(userEmail, bookId, newQuantity);
         CartOutput outputUpdate = new CartOutput();
         double total = 0.0;
         for (CartDTO c : cartUpdate) {

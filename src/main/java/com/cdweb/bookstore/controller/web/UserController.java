@@ -89,25 +89,37 @@ public class UserController {
     }
 
     @PostMapping("/cap-nhat-thong-tin")
-    public ModelAndView changeInformation(@ModelAttribute(name = "user") UserDTO user, Principal principal) {
+    public ModelAndView changeInformation(@ModelAttribute(name = "user") UserDTO user, Authentication authentication) {
         ModelAndView mav = new ModelAndView("web/information.html");
         userService.changeInformation(user);
         mav.addObject("message", "Cập nhật thông tin thành công");
-        if (principal != null) return mav;
+        if (authentication != null) return mav;
         return new ModelAndView("web/signin.html");
     }
 
     @GetMapping("/kiem-tra-mat-khau")
-    public boolean checkPass(@RequestParam(name = "oldPassword") String oldPass, Principal principal) {
-        return userService.checkPass(principal.getName(), oldPass);
+    public boolean checkPass(@RequestParam(name = "oldPassword") String oldPass, Authentication authentication) {
+        String userEmail = "";
+        if (authentication.getPrincipal() instanceof CustomOAuth2User) {
+            CustomOAuth2User oAuth2User = (CustomOAuth2User) authentication.getPrincipal();
+            userEmail = oAuth2User.getAttribute("email");
+        } else userEmail = authentication.getName();
+        return userService.checkPass(userEmail, oldPass);
     }
 
     @PostMapping("/doi-mat-khau")
-    public ModelAndView changePassword(@RequestParam(name = "password") String newPass, Principal principal) {
+    public ModelAndView changePassword(@RequestParam(name = "password") String newPass, Authentication authentication) {
         ModelAndView mav = new ModelAndView("web/information.html");
-        userService.changePassword(newPass, principal.getName());
+        String userEmail = "";
+        if (authentication.getPrincipal() instanceof CustomOAuth2User) {
+            CustomOAuth2User oAuth2User = (CustomOAuth2User) authentication.getPrincipal();
+            userEmail = oAuth2User.getAttribute("email");
+        } else userEmail = authentication.getName();
+
+        userService.changePassword(newPass, userEmail);
         mav.addObject("message", "Cập nhật mật khẩu thành công.");
-        if (principal != null) return mav;
+        
+        if (authentication != null) return mav;
         return new ModelAndView("web/signin.html");
     }
 

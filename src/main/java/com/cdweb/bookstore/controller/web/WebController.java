@@ -3,6 +3,7 @@ package com.cdweb.bookstore.controller.web;
 import com.cdweb.bookstore.dto.BookDTO;
 import com.cdweb.bookstore.service.IBookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,8 +36,8 @@ public class WebController {
     }
 
     @GetMapping("/gio-hang")
-    public ModelAndView cart(Principal principal) {
-        return principal == null ? new ModelAndView("web/signin.html") : new ModelAndView("web/cart.html");
+    public ModelAndView cart(Authentication authentication) {
+        return authentication == null ? new ModelAndView("web/signin.html") : new ModelAndView("web/cart.html");
     }
 
     @GetMapping("/thanh-toan")

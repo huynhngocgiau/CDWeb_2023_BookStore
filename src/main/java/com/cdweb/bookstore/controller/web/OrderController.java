@@ -6,8 +6,10 @@ import com.cdweb.bookstore.dto.BookDTO;
 import com.cdweb.bookstore.dto.CartDTO;
 import com.cdweb.bookstore.dto.OrderDTO;
 import com.cdweb.bookstore.dto.OrderlineDTO;
+import com.cdweb.bookstore.oauth2.CustomOAuth2User;
 import com.cdweb.bookstore.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,10 +36,17 @@ public class OrderController {
 
     @PostMapping("/thanh-toan")
     //lay list cart item, total dem qua trang thanh toan
-    public ModelAndView getCartItemToCheckout(@ModelAttribute("order") OrderInput input, Principal principal) {
-        if (principal == null) {
+    public ModelAndView getCartItemToCheckout(@ModelAttribute("order") OrderInput input, Authentication authentication) {
+        if (authentication == null) {
             return new ModelAndView("web/signin.html");
         }
+
+        String userEmail = "";
+        if (authentication.getPrincipal() instanceof CustomOAuth2User) {
+            CustomOAuth2User oAuth2User = (CustomOAuth2User) authentication.getPrincipal();
+            userEmail = oAuth2User.getAttribute("email");
+        } else userEmail = authentication.getName();
+
         CartOutput output = new CartOutput();
         double total = 0;
         //ds id cac sp
@@ -51,14 +60,22 @@ public class OrderController {
         output.setTotal(total);
         ModelAndView mav = new ModelAndView("web/checkout.html");
         mav.addObject("items", output);
-        mav.addObject("user", userService.findByEmailAndIsEnable(principal.getName()));
+        mav.addObject("user", userService.findByEmailAndIsEnable(userEmail));
         return mav;
     }
 
     @PostMapping("/dat-hang")
-    public ModelAndView checkOut(@ModelAttribute("order") OrderInput order, Principal principal) {
+    public ModelAndView checkOut(@ModelAttribute("order") OrderInput order, Authentication authentication) {
         ModelAndView mav = new ModelAndView("web/cart.html");
         List<OrderlineDTO> orderLineList = new ArrayList<>();
+
+        //kiem tra principal co phai the hien cua oauth hay khong, neu co thi ep kieu de lay email
+        String userEmail = "";
+        if (authentication.getPrincipal() instanceof CustomOAuth2User) {
+            CustomOAuth2User oAuth2User = (CustomOAuth2User) authentication.getPrincipal();
+            userEmail = oAuth2User.getAttribute("email");
+        } else userEmail = authentication.getName();
+
         double total = 0;
         //ds id cac sp
         for (Integer c : order.getCarts()) {
@@ -91,7 +108,7 @@ public class OrderController {
         newOrder.setNote(order.getNote());
         //set list orderline cho order
         newOrder.setOrderlines(orderLineList);
-        newOrder.setUser(userService.findByEmailAndIsEnable(principal.getName()));
+        newOrder.setUser(userService.findByEmailAndIsEnable(userEmail));
         newOrder.setStatus("Đang xử lý..");
         newOrder.setTotalPrice(total + 15000);
         OrderDTO result = orderService.save(newOrder);
@@ -106,10 +123,14 @@ public class OrderController {
     }
 
     @GetMapping("/don-hang")
-    public ModelAndView checkOrder(Principal principal) {
+    public ModelAndView checkOrder(Authentication authentication) {
         ModelAndView mav = new ModelAndView("web/checkOrder.html");
-        if (principal == null) return new ModelAndView("web/signin.html");
-        mav.addObject("orders", orderService.findAllByUserId(userService.findByEmailAndIsEnable(principal.getName()).getUserID()));
+        if (authentication == null) return new ModelAndView("web/signin.html");
+        if (authentication.getPrincipal() instanceof CustomOAuth2User) {
+            CustomOAuth2User oauthUser = (CustomOAuth2User) authentication.getPrincipal();
+            mav.addObject("orders", orderService.findAllByUserId(userService.findByEmailAndIsEnable(oauthUser.getAttribute("email")).getUserID()));
+        } else
+            mav.addObject("orders", orderService.findAllByUserId(userService.findByEmailAndIsEnable(authentication.getName()).getUserID()));
         return mav;
     }
 }
