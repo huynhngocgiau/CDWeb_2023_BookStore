@@ -1,8 +1,11 @@
 package com.cdweb.bookstore.controller.web;
 
 import com.cdweb.bookstore.dto.UserDTO;
+import com.cdweb.bookstore.oauth2.CustomOAuth2User;
 import com.cdweb.bookstore.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -63,10 +66,16 @@ public class UserController {
     }
 
     @GetMapping("/getUser")
-    public UserDTO getUser(Principal principal) {
-        if (principal != null) {
-            UserDTO user = this.userService.findByEmailAndIsEnable(principal.getName());
-            user.setPassword("");
+    public UserDTO getUser(Authentication authentication) {
+        if (authentication != null) {
+            UserDTO user;
+            if (authentication.getPrincipal() instanceof CustomOAuth2User) {
+                CustomOAuth2User oauthUser = (CustomOAuth2User) authentication.getPrincipal();
+                user = this.userService.findByEmailAndIsEnable(oauthUser.getAttribute("email"));
+            } else {
+                user = this.userService.findByEmailAndIsEnable(authentication.getName());
+                user.setPassword("");
+            }
             return user;
         } else {
             return new UserDTO();

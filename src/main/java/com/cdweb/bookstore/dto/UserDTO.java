@@ -19,6 +19,7 @@ public class UserDTO {
     private String confirmToken;
     private boolean status;
     private boolean isEnable;
+    private String provider;
     private LocalDate createdAt;
     private LocalDate updatedAt;
     private List<RoleDTO> roles = new ArrayList<>();
@@ -45,6 +46,14 @@ public class UserDTO {
 
     public void setFullname(String fullname) {
         this.fullname = fullname;
+    }
+
+    public String getProvider() {
+        return provider;
+    }
+
+    public void setProvider(String provider) {
+        this.provider = provider;
     }
 
     public String getUsername() {

@@ -26,6 +26,8 @@ public class UserEntity {
     private boolean status;
     @Column(name = "is_enable")
     private boolean isEnable;
+    @Column
+    private String provider;
     @Column(name = "created_at")
     private LocalDate createdAt;
     @Column(name = "updated_at")
@@ -132,6 +134,14 @@ public class UserEntity {
 
     public void setConfirmToken(String confirmToken) {
         this.confirmToken = confirmToken;
+    }
+
+    public String getProvider() {
+        return provider;
+    }
+
+    public void setProvider(String provider) {
+        this.provider = provider;
     }
 
     public boolean isEnable() {
