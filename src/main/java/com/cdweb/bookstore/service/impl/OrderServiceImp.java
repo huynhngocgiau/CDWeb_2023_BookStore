@@ -44,6 +44,11 @@ public class OrderServiceImp implements IOrderService {
     }
 
     @Override
+    public void update(OrderDTO order, int id) {
+        orderRepository.updateOrder(id, order.getStatus(), order.getNote(), order.getUpdatedAt());
+    }
+
+    @Override
     public OrderDTO findById(int id) {
         return orderConverter.toDTO(orderRepository.findByOrderID(id));
     }
